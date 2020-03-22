@@ -28,7 +28,7 @@ export class PostList extends Component {
             <Tab eventKey='latest' title='Les plus récents'>
                 {this.props.posts.map(post => <Post key={post._id} post={post}/>)}
             </Tab>
-            <Tab eventKey='latest' title='Les plus populaires' disabled>
+            <Tab eventKey='popular' title='Les plus populaires'>
                 {this.props.posts.map(post => <Post key={post._id} post={post}/>)}
             </Tab>
         </Tabs>
