@@ -1,23 +1,67 @@
+// React
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+// Actions
+import { logout } from '../actions/userAction'
+
+// Components
+import {Link, Redirect} from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
-import {Link} from 'react-router-dom'
+
 
 export class Navigation extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {redirect: false};
+    }
+    
+    logout = () => {
+        this.props.logout();
+        if (this.props.location.pathname === "/moderation") {
+            this.setState({redirect: true});
+        }
+    }
+
+    componentDidUpdate = () => {
+        if (this.state.redirect) {
+            this.setState({redirect: false});
+        }
+    }
+
     render() {
+
+        // When logging out
+        if(this.state.redirect) {
+            return <Redirect to="/"/>
+        }
+
         return (
             <Navbar bg="dark" variant="dark" sticky="top" >
-                <Navbar.Brand href="#home">Anti-Sexiste</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link href="#home">Accueil</Nav.Link>
-                    <Nav.Link href="#location">Selon le contexte</Nav.Link>
-                    <Nav.Link href="#admin">Modération</Nav.Link>
-                </Nav>
+                <Navbar.Brand> <Link to="/"> Anti-Sexiste </Link> </Navbar.Brand>
+
+                <Navbar.Text > <Link to="/" style={{textDecoration: 'none'}} > Accueil </Link> </Navbar.Text>
+                <Navbar.Text > <Link to="/categorie"> Selon le contexte </Link> </Navbar.Text>
+                {this.props.isAdmin ?
+                    <Navbar.Text > <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                :
+                    null
+                }
+
                 <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text> <Link to="/login"> Connexion </Link> </Navbar.Text> {/* style={{textDecoration: 'none'}}*/}
-                    <Button variant="outline-info">S'inscrire</Button>
+                    {this.props.loggedIn ?
+                        <div >
+                            <Navbar.Text> Bonjour, {this.props.pseudo} </Navbar.Text>
+                            <Button variant="outline-info" onClick={this.logout}> <Link to="/"> Déconnexion </Link> </Button>
+                        </div>
+                    :
+                        <div >
+                            <Navbar.Text> <Link to="/connexion"> Connexion </Link> </Navbar.Text>
+                            <Button variant="outline-info"> <Link to="/inscription"> S'inscrire </Link> </Button>
+                        </div>
+                    }
                 </Navbar.Collapse>
           </Navbar>
         )
@@ -25,11 +69,13 @@ export class Navigation extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
+    loggedIn: state.user.token,
+    isAdmin: state.user.isAdmin,
+    pseudo: state.user.pseudo,
 })
 
-const mapDispatchToProps = {
-    
+const mapDispatchToProps = {    
+    logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

@@ -1,5 +1,8 @@
+// React
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+// Components
 import Comment from './Comment'
 
 export class CommentList extends Component {

@@ -1,6 +1,11 @@
+// React
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+// Actions
 import { login } from '../actions/userAction'
+
+// Components
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 

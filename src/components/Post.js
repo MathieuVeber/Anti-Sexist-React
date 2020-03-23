@@ -1,16 +1,20 @@
+// React
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+// Components
+import CommentList from './CommentList'
 import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
 import Button from 'react-bootstrap/Button'
-import CommentList from './CommentList'
+
 
 export class Post extends Component {
 
     render() {
         return (
             <Accordion defaultActiveKey="">
-                <Card border="primary" style={{ width: '18rem' }}>
+                <Card border={this.props.variant}>
                     <Card.Header>
                             {this.props.post.author || 'Anonyme' }
                     </Card.Header>

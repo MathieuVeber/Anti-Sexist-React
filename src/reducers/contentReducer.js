@@ -1,7 +1,9 @@
-import {GET_POSTS} from '../actions/types'
+import {GET_POSTS, GET_LABELS, GET_REPORTS} from '../actions/types'
 
 const initialState = {
     posts: [],
+    labels: [],
+    reports: [],
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +12,16 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 posts:action.payload.posts,
+            }
+        case GET_LABELS :
+            return {
+                ...state,
+                labels:action.payload.labels,
+            }
+        case GET_REPORTS :
+            return {
+                ...state,
+                reports:action.payload.reports,
             }
         default: return state
     }
