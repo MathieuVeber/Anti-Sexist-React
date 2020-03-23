@@ -1,4 +1,5 @@
 import React from 'react'
+import ArticleElement from "../element/ArticleElement"
 
 function Post(props) {
     return(
@@ -6,14 +7,9 @@ function Post(props) {
             <header>
                 <h1>{props.title}</h1>
             </header>
-            <p>
-                {props.message}
-            </p>
-            <footer>
-                <p>{props.created}</p>
-                <p>Ça m'est arrivé aussi: <ReactionButton {...{numberReaction : props.reaction, url: "%API_URL%/" + props.id}}/>
-                </p>
-            </footer>
+        <ArticleElement {...props}/>
         </article>
+            
     )
 }
+export default Post

@@ -1,16 +1,10 @@
 import React from 'react'
-import ReactionButton from "../element/ReactionButton"
+import ArticleElement from '../element/ArticleElement'
+
 function Reponse(props) {
     return(
         <article>
-            <p>
-                {props.message}
-            </p>
-            <footer>
-                <p>{props.created}</p>
-                <p>Ça m'est arrivé aussi: <ReactionButton {...{numberReaction : props.reaction, url: "%API_URL%/" + props.id}}/>
-                </p>
-            </footer>
+            <ArticleElement {...props}/>
         </article>
     ) 
 }
