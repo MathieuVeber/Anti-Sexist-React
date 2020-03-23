@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
-
+import {Link} from 'react-router-dom'
 
 export class Navigation extends Component {
     render() {
@@ -16,7 +16,7 @@ export class Navigation extends Component {
                     <Nav.Link href="#admin">Modération</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text> <a href="#login"> Connexion </a> </Navbar.Text>
+        <Navbar.Text> <Link to="/login"> Connexion </Link> </Navbar.Text> {/* style={{textDecoration: 'none'}}*/}
                     <Button variant="outline-info">S'inscrire</Button>
                 </Navbar.Collapse>
           </Navbar>
