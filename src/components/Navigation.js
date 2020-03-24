@@ -33,7 +33,7 @@ export class Navigation extends Component {
 
     render() {
 
-        // When logging out
+        // When logged out
         if(this.state.redirect) {
             return <Redirect to="/"/>
         }
