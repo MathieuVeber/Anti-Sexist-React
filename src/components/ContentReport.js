@@ -17,7 +17,7 @@ export class ContentReport extends Component {
     render() {
         return (
             <div className="report" >
-                <PostList posts={this.props.reports} variant="outline-danger" />
+                <PostList posts={this.props.reports} variant="danger" />
             </div>
         )
     }

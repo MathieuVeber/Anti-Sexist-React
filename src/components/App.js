@@ -8,7 +8,6 @@ import '../styles/App.css';
 // Components
 import Navigation from './Navigation';
 import ContentHome from './ContentHome';
-import ContentSort from './ContentSort';
 import ContentReport from './ContentReport';
 import UserLogin from './UserLogin';
 import UserRegister from './UserRegister';
@@ -17,14 +16,17 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Route path='/' component={Navigation} />
-        <Switch>
-          <Route path='/' exact component={ContentHome}/>
-          <Route path='/categorie' component={ContentSort}/>
-          <Route path='/moderation' component={ContentReport}/>
-          <Route path='/connexion' component={UserLogin}/>
-          <Route path='/inscription' component={UserRegister}/>
-        </Switch>
+        <nav>
+          <Route path='/' component={Navigation} />
+        </nav>
+        <section className="content" style={{"marginTop": "80px"}}>
+          <Switch>
+            <Route path='/' exact component={ContentHome}/>
+            <Route path='/moderation' component={ContentReport}/>
+            <Route path='/connexion' component={UserLogin}/>
+            <Route path='/inscription' component={UserRegister}/>
+          </Switch>
+        </section>
       </div>
     </BrowserRouter>
   );

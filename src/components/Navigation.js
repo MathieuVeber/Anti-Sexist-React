@@ -39,11 +39,10 @@ export class Navigation extends Component {
         }
 
         return (
-            <Navbar bg="dark" variant="dark" sticky="top" >
+            <Navbar bg="dark" variant="dark" fixed="top" >
                 <Navbar.Brand> <Link to="/" style={{textDecoration:'none'}} > Anti-Sexiste </Link> </Navbar.Brand>
 
                 <Navbar.Text > <Link to="/"> Accueil </Link> </Navbar.Text>
-                <Navbar.Text > <Link to="/categorie"> Selon le contexte </Link> </Navbar.Text>
                 {this.props.isAdmin ?
                     <Navbar.Text > <Link to="/moderation"> Modération </Link> </Navbar.Text>
                 :
@@ -59,7 +58,7 @@ export class Navigation extends Component {
                     :
                         <div >
                             <Navbar.Text> <Link to="/connexion"> Connexion </Link> </Navbar.Text>
-                            <Button variant="outline-info"> <Link to="/inscription" style={{textDecoration:'none'}}> S'inscrire </Link> </Button>
+                            <Button variant="outline-info"> <Link to="/inscription" style={{"textDecoration":"none"}}> S'inscrire </Link> </Button>
                         </div>
                     }
                 </Navbar.Collapse>

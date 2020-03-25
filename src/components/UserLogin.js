@@ -9,9 +9,9 @@ import { login } from '../actions/userAction'
 import {Redirect} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 
 export class UserLogin extends Component {
@@ -38,27 +38,31 @@ export class UserLogin extends Component {
         return (
             <div className="login">
                 <Container fluid>
-                    <Row>
-                        <Col ></Col>
-                        <Col >
-                            <Form onSubmit={this.handleSubmit}> {/*validated={this.isValid} noValidate >*/}
-                                <Form.Group controlId="user">
-                                    <Form.Label>Identifiant</Form.Label>
-                                    <Form.Control type="text" placeholder="Email ou pseudo" ref={this.user} required />
-                                    <Form.Control.Feedback type="invalid">Pas facile de vous identifier comme ça...</Form.Control.Feedback>
-                                </Form.Group>
+                    <Row className="d-flex justify-content-center">
+                        <Card className="" border="info" >
+                            <Card.Header>
+                                Connexion
+                            </Card.Header>
+                            <Card.Body className="p-4">
+                                <Form onSubmit={this.handleSubmit}> {/*validated={this.isValid} noValidate >*/}
+                                    
+                                    <Form.Group controlId="user">
+                                        <Card.Title><Form.Label>Identifiant</Form.Label></Card.Title>
+                                        <Form.Control type="text" placeholder="Email ou pseudo" ref={this.user} required />
+                                        <Form.Control.Feedback type="invalid">Pas facile de vous identifier comme ça...</Form.Control.Feedback>
+                                    </Form.Group>
 
-                                <Form.Group controlId="password">
-                                    <Form.Label>Mot de passe</Form.Label>
-                                    <Form.Control type="password" placeholder="Au moins 6 caractères" ref={this.password} required />
-                                    <Form.Control.Feedback type="invalid">Pas facile de vous identifier comme ça...</Form.Control.Feedback>
-                                </Form.Group>
-                                <Button variant="info" type="submit">
-                                    Submit
-                                </Button>
-                            </Form>
-                        </Col>
-                        <Col ></Col>
+                                    <Form.Group controlId="password">
+                                    <Card.Title><Form.Label>Mot de passe</Form.Label></Card.Title>
+                                        <Form.Control type="password" placeholder="Au moins 6 caractères" ref={this.password} required />
+                                        <Form.Control.Feedback type="invalid">Pas facile de vous identifier comme ça...</Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Button variant="info" type="submit">
+                                        Se connecter
+                                    </Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
                     </Row>
                 </Container>
             </div>

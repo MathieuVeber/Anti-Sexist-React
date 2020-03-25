@@ -9,9 +9,9 @@ import { register } from '../actions/userAction'
 import {Redirect} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 
 export class UserRegister extends Component {
@@ -38,30 +38,33 @@ export class UserRegister extends Component {
         return (
             <div className="register">
                 <Container fluid>
-                    <Row>
-                        <Col ></Col>
-                        <Col >
-                            <Form onSubmit={this.handleSubmit}>
-                                <Form.Group controlId="pseudo">
-                                    <Form.Label>Pseudo</Form.Label>
-                                    <Form.Control type="text" placeholder="antiDu34" ref={this.pseudo} required />
-                                </Form.Group>
+                <Row className="d-flex justify-content-center">
+                        <Card border="info" >
+                            <Card.Header>
+                                Inscription
+                            </Card.Header>
+                            <Card.Body className="p-4">
+                                <Form onSubmit={this.handleSubmit}>
+                                    <Form.Group controlId="pseudo">
+                                        <Card.Title><Form.Label>Pseudo</Form.Label></Card.Title>
+                                        <Form.Control type="text" placeholder="antiDu34" ref={this.pseudo} required />
+                                    </Form.Group>
 
-                                <Form.Group controlId="email">
-                                    <Form.Label>Identifiant</Form.Label>
-                                    <Form.Control type="email" placeholder="anti@sexiste.fr" ref={this.email} required />
-                                </Form.Group>
+                                    <Form.Group controlId="email">
+                                        <Card.Title><Form.Label>Email</Form.Label></Card.Title>
+                                        <Form.Control type="email" placeholder="anti@sexiste.fr" ref={this.email} required />
+                                    </Form.Group>
 
-                                <Form.Group controlId="password">
-                                    <Form.Label>Mot de passe</Form.Label>
-                                    <Form.Control type="password" placeholder="Au moins 6 caractères" ref={this.password} required />
-                                </Form.Group>
-                                <Button variant="info" type="submit">
-                                    Submit
-                                </Button>
-                            </Form>
-                        </Col>
-                        <Col ></Col>
+                                    <Form.Group controlId="password">
+                                        <Card.Title><Form.Label>Mot de passe</Form.Label></Card.Title>
+                                        <Form.Control type="password" placeholder="Au moins 6 caractères" ref={this.password} required />
+                                    </Form.Group>
+                                    <Button variant="info" type="submit">
+                                        S'incrire
+                                    </Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
                     </Row>
                 </Container>
             </div>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 // Components
 import Post from './Post'
-import { Tabs, Tab } from 'react-bootstrap'
 
 
 export class PostList extends Component {
@@ -30,16 +29,11 @@ export class PostList extends Component {
 
       
     render() {
-    return (
-        <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect}>
-            <Tab eventKey='latest' title='Les plus récents'>
+        return (
+            <div>
                 {this.props.posts.map(post => <Post key={post._id} post={post} variant={this.props.variant} />)}
-            </Tab>
-            <Tab eventKey='popular' title='Les plus populaires'>
-                {this.props.posts.map(post => <Post key={post._id} post={post} variant={this.props.variant} />)}
-            </Tab>
-        </Tabs>
-    );
+            </div>
+        )
     }
 }
 

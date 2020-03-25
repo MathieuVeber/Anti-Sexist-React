@@ -21,7 +21,7 @@ export const getPosts = (page=1,sort="latest",label="all") => dispatch => {
     )
 };
 
-export const postPost = (posts,title,message,location,token) => dispatch => {
+export const postPost = (title,message,location,token) => dispatch => {
     axios.post(`${process.env.REACT_APP_API_URL}/posts/`,
     {
         title:title,
@@ -32,10 +32,7 @@ export const postPost = (posts,title,message,location,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_POST,
-            payload: {posts:posts.push(res.data)}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -287,7 +284,7 @@ export const deleteLabel = (labels,of,name,token) => dispatch => {
 
 
 export const getReports = (of,token,page=1) => dispatch => {
-    axios.get(`${process.env.REACT_APP_API_URL}/reports/${of}?page=${page}/`,{
+    axios.get(`${process.env.REACT_APP_API_URL}/reports/${of}?page=${page}`,{
         headers:{
             'auth-token':token
         }
