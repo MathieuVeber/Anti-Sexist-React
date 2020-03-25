@@ -33,12 +33,14 @@ export class PostFilter extends Component {
                                         Les plus populaires
                                     </Button>
                                 </ButtonGroup>
-                                <ButtonGroup className="m-1">
-                                    <Button onClick={() => this.props.onLabelChange("all")} variant={this.props.current.label === "all" ? "info" : "outline-info"} >Tout</Button>
-                                    {this.props.labels.map(label =>
-                                        <Button onClick={() => this.props.onLabelChange(label.name)} key={label._id} variant={this.props.current.label === label.name ? "info" : "outline-info"} >{label.name}</Button>
-                                    )}
-                                </ButtonGroup>
+                                {this.props.labels ?
+                                    <ButtonGroup className="m-1">
+                                        <Button onClick={() => this.props.onLabelChange("all")} variant={this.props.current.label === "all" ? "info" : "outline-info"} >Tout</Button>
+                                        {this.props.labels.map(label =>
+                                            <Button onClick={() => this.props.onLabelChange(label.name)} key={label._id} variant={this.props.current.label === label.name ? "info" : "outline-info"} >{label.name}</Button>
+                                        )}
+                                    </ButtonGroup>
+                                : null}
                         </ButtonToolbar>
                     </Row>
                     </Accordion.Collapse>

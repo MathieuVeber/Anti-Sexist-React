@@ -10,6 +10,9 @@ import {Link, Redirect} from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
 
+// Logo
+import logo from '../logoTransparent.png'
+
 
 export class Navigation extends Component {
 
@@ -40,11 +43,13 @@ export class Navigation extends Component {
 
         return (
             <Navbar bg="dark" variant="dark" fixed="top" >
-                <Navbar.Brand> <Link to="/" style={{textDecoration:'none'}} > Anti-Sexiste </Link> </Navbar.Brand>
-
-                <Navbar.Text > <Link to="/"> Accueil </Link> </Navbar.Text>
+                <Link to="/"> <Navbar.Brand> <img src={logo} alt="Logo de Réplique" style={{width:"175px", height:"auto"}} /> </Navbar.Brand> </Link>
                 {this.props.isAdmin ?
-                    <Navbar.Text > <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                    <div>
+                        <Navbar.Text className="m-1" > <Link to="/"> Accueil </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1" > <Link to="/categories"> Catégories </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1" > <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                    </div>
                 :
                     null
                 }
@@ -52,13 +57,13 @@ export class Navigation extends Component {
                 <Navbar.Collapse className="justify-content-end">
                     {this.props.loggedIn ?
                         <div >
-                            <Navbar.Text> Bonjour, {this.props.pseudo} </Navbar.Text>
-                            <Button variant="outline-info" onClick={this.logout}> <Link to="/"> Déconnexion </Link> </Button>
+                            <Navbar.Text className="m-1" > Bonjour, {this.props.pseudo} </Navbar.Text>
+                            <Link to="/"> <Button className="m-1" variant="outline-info" onClick={this.logout}> Déconnexion </Button> </Link>
                         </div>
                     :
                         <div >
-                            <Navbar.Text> <Link to="/connexion"> Connexion </Link> </Navbar.Text>
-                            <Button variant="outline-info"> <Link to="/inscription" style={{"textDecoration":"none"}}> S'inscrire </Link> </Button>
+                            <Navbar.Text className="m-1" > <Link to="/connexion"> Connexion </Link> </Navbar.Text>
+                            <Link to="/inscription"> <Button className="m-1" variant="outline-info">  S'inscrire </Button> </Link>
                         </div>
                     }
                 </Navbar.Collapse>

@@ -1,5 +1,5 @@
 import {
-    GET_POSTS,POST_POST,PATCH_POST,DELETE_POST,POST_LIKE_POST,DELETE_LIKE_POST,POST_REPORT_POST,
+    GET_POSTS,PATCH_POST,DELETE_POST,POST_LIKE_POST,DELETE_LIKE_POST,POST_REPORT_POST,
     POST_COMMENT,PATCH_COMMENT,DELETE_COMMENT,POST_LIKE_COMMENT,DELETE_LIKE_COMMENT,POST_REPORT_COMMENT,
     GET_LABELS,POST_LABEL,PUT_LABEL,DELETE_LABEL,
     GET_REPORTS,DELETE_REPORT
@@ -16,11 +16,6 @@ export default function(state = initialState, action) {
 
         //POSTS
         case GET_POSTS :
-            return {
-                ...state,
-                posts:action.payload.posts,
-            }
-        case POST_POST :
             return {
                 ...state,
                 posts:action.payload.posts,

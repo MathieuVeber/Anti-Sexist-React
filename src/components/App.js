@@ -7,8 +7,9 @@ import '../styles/App.css';
 
 // Components
 import Navigation from './Navigation';
-import ContentHome from './ContentHome';
-import ContentReport from './ContentReport';
+import PageHome from './PageHome';
+import PageLabel from './PageLabel';
+import PageReport from './PageReport';
 import UserLogin from './UserLogin';
 import UserRegister from './UserRegister';
 
@@ -21,8 +22,9 @@ function App() {
         </nav>
         <section className="content" style={{"marginTop": "80px"}}>
           <Switch>
-            <Route path='/' exact component={ContentHome}/>
-            <Route path='/moderation' component={ContentReport}/>
+            <Route path='/' exact component={PageHome}/>
+            <Route path='/categories' component={PageLabel}/>
+            <Route path='/moderation' component={PageReport}/>
             <Route path='/connexion' component={UserLogin}/>
             <Route path='/inscription' component={UserRegister}/>
           </Switch>
