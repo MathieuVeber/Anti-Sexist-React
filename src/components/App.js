@@ -23,6 +23,7 @@ function App() {
           <Switch>
             <Route path='/' exact component={ContentHome}/>
             <Route path='/moderation' component={ContentReport}/>
+            <Route path='/gestion-labels' component={ContentLabels}/>
             <Route path='/connexion' component={UserLogin}/>
             <Route path='/inscription' component={UserRegister}/>
           </Switch>

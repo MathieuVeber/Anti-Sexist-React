@@ -43,8 +43,14 @@ export class Navigation extends Component {
                 <Navbar.Brand> <Link to="/" style={{textDecoration:'none'}} > Anti-Sexiste </Link> </Navbar.Brand>
 
                 <Navbar.Text > <Link to="/"> Accueil </Link> </Navbar.Text>
+                {this.props.isAdmin ? 
+                    <Navbar.Text> <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                :
+                    null
+                }
+
                 {this.props.isAdmin ?
-                    <Navbar.Text > <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                    <Navbar.Text> <Link to="/gestion-labels"> Libellés </Link> </Navbar.Text>
                 :
                     null
                 }
