@@ -63,7 +63,7 @@ export class Navigation extends Component {
                     :
                         <div >
                             <Navbar.Text className="m-1" > <Link to="/connexion"> Connexion </Link> </Navbar.Text>
-                            <Link to="/inscription"> <Button className="m-1" variant="outline-info">  S'inscrire </Button> </Link>
+                            <Link to="/inscription"> <Button className="m-1" variant="outline-info" >  S'inscrire </Button> </Link>
                         </div>
                     }
                 </Navbar.Collapse>
