@@ -2,12 +2,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+//Component
+import {LabelDelete} from "./LabelDelete"
+
 export function Label(props) {
     return (
         <li>
-            {props.label.name}<br/>
-            {props.label.of}<br/>
-            {props.label._id}
+            <LabelDelete 
+                name={props.label.name}
+                of={props.label.of}
+            />
+            {props.label.name}
         </li>
     )
 }

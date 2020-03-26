@@ -18,8 +18,9 @@ export class ContentLabel extends Component{
         return (
             <div>
                 <LabelList 
-                    labels={this.props.labels}/>
-                <LabelNew labels={this.props.labels}/>
+                    labels={this.props.labels}
+                />
+                <LabelNew />
             </div>
         )
     }
