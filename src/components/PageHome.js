@@ -10,12 +10,11 @@ import PostFilter from './PostFilter'
 import PostNew from './PostNew'
 import PostList from './PostList'
 
-export class ContentHome extends Component {
+export class PageHome extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            filter:false,
             label:"all",
             sort:"latest",
         }
@@ -51,13 +50,13 @@ export class ContentHome extends Component {
                     onSortChange={this.onSortChange}
                     onLabelChange={this.onLabelChange}
                 />
-            
+
                 <PostList
                     posts={this.props.posts}
-                    variant="info"
+                    variant="dark"
                 />
 
-<PostNew></PostNew>
+                <PostNew/>
 
             </div>
         )
@@ -74,4 +73,4 @@ const mapDispatchToProps = {
     getLabels,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentHome)
+export default connect(mapStateToProps, mapDispatchToProps)(PageHome)

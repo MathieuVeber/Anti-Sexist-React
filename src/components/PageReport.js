@@ -8,7 +8,7 @@ import { getReports } from '../actions/contentAction'
 // Components
 import PostList from './PostList'
 
-export class ContentReport extends Component {
+export class PageReport extends Component {
 
     componentDidMount = () => {
         this.props.getReports("posts",this.props.token);
@@ -32,4 +32,4 @@ const mapDispatchToProps = {
     getReports
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentReport)
+export default connect(mapStateToProps, mapDispatchToProps)(PageReport)

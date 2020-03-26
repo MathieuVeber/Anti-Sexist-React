@@ -10,6 +10,9 @@ import {Link, Redirect} from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
 
+// Logo
+import logo from '../logoTransparent.png'
+
 
 export class Navigation extends Component {
 
@@ -40,17 +43,14 @@ export class Navigation extends Component {
 
         return (
             <Navbar bg="dark" variant="dark" fixed="top" >
-                <Navbar.Brand> <Link to="/" style={{textDecoration:'none'}} > Anti-Sexiste </Link> </Navbar.Brand>
-
-                <Navbar.Text > <Link to="/"> Accueil </Link> </Navbar.Text>
-                {this.props.isAdmin ? 
-                    <Navbar.Text> <Link to="/moderation"> Modération </Link> </Navbar.Text>
-                :
-                    null
-                }
-
+                <Link to="/"> <Navbar.Brand className="align-middle" > <img src={logo} alt="Logo de Réplique" style={{width:"175px", height:"auto"}} /> </Navbar.Brand> </Link>
                 {this.props.isAdmin ?
-                    <Navbar.Text> <Link to="/gestion-labels"> Libellés </Link> </Navbar.Text>
+                    <div>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/"> Accueil </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/categories"> Catégories </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/gestion-labels"> Libellés </Link> </Navbar.Text>
+                    </div>
                 :
                     null
                 }
@@ -58,13 +58,13 @@ export class Navigation extends Component {
                 <Navbar.Collapse className="justify-content-end">
                     {this.props.loggedIn ?
                         <div >
-                            <Navbar.Text> Bonjour, {this.props.pseudo} </Navbar.Text>
-                            <Button variant="outline-info" onClick={this.logout}> <Link to="/"> Déconnexion </Link> </Button>
+                            <Navbar.Text className="m-1 align-middle" > Bonjour, {this.props.pseudo} </Navbar.Text>
+                            <Link to="/"> <Button className="m-1 align-middle" variant="outline-light" onClick={this.logout}> Déconnexion </Button> </Link>
                         </div>
                     :
                         <div >
-                            <Navbar.Text> <Link to="/connexion"> Connexion </Link> </Navbar.Text>
-                            <Button variant="outline-info"> <Link to="/inscription" style={{"textDecoration":"none"}}> S'inscrire </Link> </Button>
+                            <Navbar.Text className="m-1 align-middle" > <Link to="/connexion"> Connexion </Link> </Navbar.Text>
+                            <Link to="/inscription"> <Button className="m-1 align-middle" variant="outline-light" >  S'inscrire </Button> </Link>
                         </div>
                     }
                 </Navbar.Collapse>
