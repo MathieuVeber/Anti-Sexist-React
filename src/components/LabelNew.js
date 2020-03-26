@@ -63,4 +63,4 @@ const mapDispatchToProps = {
     postLabel,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostNew)
+export default connect(mapStateToProps, mapDispatchToProps)(LabelNew)
