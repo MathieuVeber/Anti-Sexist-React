@@ -1,8 +1,9 @@
 import {
-    GET_POSTS,PATCH_POST,DELETE_POST,POST_LIKE_POST,DELETE_LIKE_POST,POST_REPORT_POST,
+    GET_POSTS,
     POST_COMMENT,PATCH_COMMENT,DELETE_COMMENT,POST_LIKE_COMMENT,DELETE_LIKE_COMMENT,POST_REPORT_COMMENT,
     GET_LABELS,POST_LABEL,PUT_LABEL,DELETE_LABEL,
-    GET_REPORTS,DELETE_REPORT
+    GET_REPORTS,DELETE_REPORT,
+    SHOW_CONFIRMATION,HIDE_CONFIRMATION,
 } from './types';
 import axios from 'axios';
 
@@ -36,7 +37,7 @@ export const postPost = (title,message,location,token) => dispatch => {
     )
 };
 
-export const patchPost = (posts,idPost,title,message,location,token) => dispatch => {
+export const patchPost = (idPost,title,message,location,token) => dispatch => {
     axios.patch(`${process.env.REACT_APP_API_URL}/posts/${idPost}/`,
     {
         title:title,
@@ -47,28 +48,18 @@ export const patchPost = (posts,idPost,title,message,location,token) => dispatch
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: PATCH_POST,
-            payload: {
-                posts:posts.map(post => post._id === idPost ? res.data : post)
-            }
-        })}
+        res => dispatch(getPosts())
     )
 };
 
-export const deletePost = (posts,idPost,token) => dispatch => {
+export const deletePost = (idPost,token) => dispatch => {
     axios.delete(`${process.env.REACT_APP_API_URL}/posts/${idPost}/`,
     { 
         headers: { 'auth-token':token }
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: DELETE_POST,
-            payload: {posts:posts.filter(post => {
-                return (post._id === idPost) ? false : true ;
-            })}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -80,10 +71,7 @@ export const postLikePost = (idPost,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_LIKE_POST,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -94,10 +82,7 @@ export const deleteLikePost = (idPost,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: DELETE_LIKE_POST,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -108,10 +93,7 @@ export const postReportPost = (idPost,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_REPORT_POST,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -309,4 +291,23 @@ export const deleteReport = (of,idContent,token) => dispatch => {
             payload: {}
         })}
     )
+};
+
+
+
+/* Confirmation */
+
+
+export const showConfirmation = (type, post, comment=null) => dispatch => {
+    dispatch({
+        type: SHOW_CONFIRMATION,
+        payload: {type:type, post:post, comment:comment }
+    })
+};
+
+export const hideConfirmation = () => dispatch => {
+    dispatch({
+        type: HIDE_CONFIRMATION,
+        payload: {type:false}
+    })
 };

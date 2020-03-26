@@ -12,6 +12,7 @@ import PageLabel from './PageLabel';
 import PageReport from './PageReport';
 import UserLogin from './UserLogin';
 import UserRegister from './UserRegister';
+import Confirmation from './Confirmation';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path='/connexion' component={UserLogin}/>
             <Route path='/inscription' component={UserRegister}/>
           </Switch>
+          <Confirmation/>
         </section>
       </div>
     </BrowserRouter>

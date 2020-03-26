@@ -1,12 +1,6 @@
 // CONTENT
     // Posts
 export const GET_POSTS = "GET_POSTS";
-export const PATCH_POST = "PATCH_POST";
-export const DELETE_POST = "DELETE_POST";
-
-export const POST_LIKE_POST = "POST_LIKE_POST";
-export const DELETE_LIKE_POST = "DELETE_LIKE_POST";
-export const POST_REPORT_POST = "POST_REPORT_POST";
 
     // Comments
 export const POST_COMMENT = "POST_COMMENT";
@@ -27,6 +21,9 @@ export const DELETE_LABEL = "DELETE_LABEL";
 export const GET_REPORTS = "GET_REPORTS";
 export const DELETE_REPORT = "DELETE_REPORTS";
 
+    // Confirmation
+export const SHOW_CONFIRMATION = "SHOW_CONFIRMATION";
+export const HIDE_CONFIRMATION = "HIDE_CONFIRMATION";
 
 // USER
     // Log

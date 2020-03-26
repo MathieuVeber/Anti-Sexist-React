@@ -1,14 +1,21 @@
 import {
-    GET_POSTS,PATCH_POST,DELETE_POST,POST_LIKE_POST,DELETE_LIKE_POST,POST_REPORT_POST,
+    GET_POSTS,
     POST_COMMENT,PATCH_COMMENT,DELETE_COMMENT,POST_LIKE_COMMENT,DELETE_LIKE_COMMENT,POST_REPORT_COMMENT,
     GET_LABELS,POST_LABEL,PUT_LABEL,DELETE_LABEL,
-    GET_REPORTS,DELETE_REPORT
+    GET_REPORTS,DELETE_REPORT,
+    SHOW_CONFIRMATION,HIDE_CONFIRMATION,
 } from '../actions/types';
 
 const initialState = {
     posts: [],
     labels: [],
     reports: [],
+    confirmation: {
+        display:false,
+        type:null,
+        post:null,
+        comment:null,
+    }
 };
 
 export default function(state = initialState, action) {
@@ -19,29 +26,6 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 posts:action.payload.posts,
-            }
-        case PATCH_POST :
-            return {
-                ...state,
-                posts:action.payload.posts,
-            }
-        case DELETE_POST :
-            return {
-                ...state,
-                posts:action.payload.posts,
-            }
-        
-        case POST_LIKE_POST :
-            return {
-                ...state,
-            }
-        case DELETE_LIKE_POST :
-            return {
-                ...state,
-            }
-        case POST_REPORT_POST :
-            return {
-                ...state,
             }
         
         // COMMENTS
@@ -104,6 +88,27 @@ export default function(state = initialState, action) {
             return {
                 ...state,
             }
+
+        // CONFIRMATION
+        case SHOW_CONFIRMATION :
+            return {
+                ...state,
+                confirmation:{
+                    display:true,
+                    type:action.payload.type,
+                    post:action.payload.post,
+                    comment:action.payload.comment,
+                }
+            }
+
+            case HIDE_CONFIRMATION :
+                return {
+                    ...state,
+                    confirmation:{
+                        ...state.confirmation,
+                        display:false,
+                    }
+                }
         
         default: return state
     }
