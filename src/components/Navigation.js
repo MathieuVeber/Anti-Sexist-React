@@ -43,12 +43,12 @@ export class Navigation extends Component {
 
         return (
             <Navbar bg="dark" variant="dark" fixed="top" >
-                <Link to="/"> <Navbar.Brand> <img src={logo} alt="Logo de Réplique" style={{width:"175px", height:"auto"}} /> </Navbar.Brand> </Link>
+                <Link to="/"> <Navbar.Brand className="align-middle" > <img src={logo} alt="Logo de Réplique" style={{width:"175px", height:"auto"}} /> </Navbar.Brand> </Link>
                 {this.props.isAdmin ?
                     <div>
-                        <Navbar.Text className="m-1" > <Link to="/"> Accueil </Link> </Navbar.Text>
-                        <Navbar.Text className="m-1" > <Link to="/categories"> Catégories </Link> </Navbar.Text>
-                        <Navbar.Text className="m-1" > <Link to="/moderation"> Modération </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/"> Accueil </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/categories"> Catégories </Link> </Navbar.Text>
+                        <Navbar.Text className="m-1 align-middle" > <Link to="/moderation"> Modération </Link> </Navbar.Text>
                     </div>
                 :
                     null
@@ -57,13 +57,13 @@ export class Navigation extends Component {
                 <Navbar.Collapse className="justify-content-end">
                     {this.props.loggedIn ?
                         <div >
-                            <Navbar.Text className="m-1" > Bonjour, {this.props.pseudo} </Navbar.Text>
-                            <Link to="/"> <Button className="m-1" variant="outline-info" onClick={this.logout}> Déconnexion </Button> </Link>
+                            <Navbar.Text className="m-1 align-middle" > Bonjour, {this.props.pseudo} </Navbar.Text>
+                            <Link to="/"> <Button className="m-1 align-middle" variant="outline-light" onClick={this.logout}> Déconnexion </Button> </Link>
                         </div>
                     :
                         <div >
-                            <Navbar.Text className="m-1" > <Link to="/connexion"> Connexion </Link> </Navbar.Text>
-                            <Link to="/inscription"> <Button className="m-1" variant="outline-info" >  S'inscrire </Button> </Link>
+                            <Navbar.Text className="m-1 align-middle" > <Link to="/connexion"> Connexion </Link> </Navbar.Text>
+                            <Link to="/inscription"> <Button className="m-1 align-middle" variant="outline-light" >  S'inscrire </Button> </Link>
                         </div>
                     }
                 </Navbar.Collapse>

@@ -53,7 +53,7 @@ export class PageHome extends Component {
 
                 <PostList
                     posts={this.props.posts}
-                    variant="info"
+                    variant="dark"
                 />
 
                 <PostNew/>
