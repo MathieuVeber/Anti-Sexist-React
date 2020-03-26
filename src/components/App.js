@@ -23,8 +23,8 @@ function App() {
         <section className="content" style={{"paddingTop": "88px"}}>
           <Switch>
             <Route path='/' exact component={PageHome}/>
+            <Route path='/categories' component={PageLabel}/>
             <Route path='/moderation' component={PageReport}/>
-            <Route path='/gestion-labels' component={PageLabel}/>
             <Route path='/connexion' component={UserLogin}/>
             <Route path='/inscription' component={UserRegister}/>
           </Switch>

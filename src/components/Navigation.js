@@ -49,7 +49,6 @@ export class Navigation extends Component {
                         <Navbar.Text className="m-1 align-middle" > <Link to="/"> Accueil </Link> </Navbar.Text>
                         <Navbar.Text className="m-1 align-middle" > <Link to="/categories"> Catégories </Link> </Navbar.Text>
                         <Navbar.Text className="m-1 align-middle" > <Link to="/moderation"> Modération </Link> </Navbar.Text>
-                        <Navbar.Text className="m-1 align-middle" > <Link to="/gestion-labels"> Libellés </Link> </Navbar.Text>
                     </div>
                 :
                     null
