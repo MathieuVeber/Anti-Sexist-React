@@ -8,8 +8,12 @@ export class PageLabel extends Component {
     render() {
         return (
             <div>
-                <ContentLabel/>
-                <ContentLabel/>
+                <ContentLabel 
+                    of={'posts'}/>
+                {/*
+                <ContentLabel
+                    of={'comments'}/>
+                */}
             </div>
         )
     }
