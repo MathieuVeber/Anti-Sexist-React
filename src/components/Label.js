@@ -4,16 +4,37 @@ import { connect } from 'react-redux'
 
 //Component
 import {LabelDelete} from "./LabelDelete"
+import {LabelEdit} from "./LabelEdit"
+
+//Bootstrap
+import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 export function Label(props) {
     return (
-        <li>
-            <LabelDelete 
-                name={props.label.name}
-                of={props.label.of}
-            />
-            {props.label.name}
-        </li>
+        <Card className="m-4" bg={props.variant} text={props.variant === 'light' ? 'dark' : 'white'}> 
+            <Card.Body>
+                {props.label.name}
+            </Card.Body>
+            <Card.Footer>
+                <Row>
+                    <Col>
+                <LabelDelete 
+                    name={props.label.name}
+                    of={props.label.of}
+                />
+                </Col>
+                <Col>
+                <LabelEdit
+                    name={props.label.name}
+                    of={props.label.of}
+                    id={props.label.id}
+                />
+                </Col>
+                </Row>
+            </Card.Footer>
+        </Card>
     )
 }
 

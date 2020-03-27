@@ -4,17 +4,20 @@ import { connect } from 'react-redux'
 //Component
 import ContentLabel from './ContentLabel'
 
+//Bootstrap
+import Container from 'react-bootstrap/Container'
+
 export class PageLabel extends Component {
     render() {
         return (
-            <div>
+            <Container fluid>
                 <ContentLabel 
                     of={'posts'}/>
                 {/*
                 <ContentLabel
                     of={'comments'}/>
                 */}
-            </div>
+            </Container>
         )
     }
 }

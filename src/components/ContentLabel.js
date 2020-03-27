@@ -8,6 +8,8 @@ import {LabelNew} from './LabelNew'
 
 //Action
 import {getLabels} from'../actions/contentAction'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
 
 export class ContentLabel extends Component{
     componentDidMount(){
@@ -16,12 +18,15 @@ export class ContentLabel extends Component{
 
     render(){
         return (
-            <div>
+            <Container Container>
+                <Col md="4">
                 <LabelList 
                     labels={this.props.labels}
                 />
                 <LabelNew />
-            </div>
+                </Col>
+
+            </Container>
         )
     }
     

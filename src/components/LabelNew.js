@@ -38,7 +38,7 @@ export class LabelNew extends Component {
 
                                     <Form.Group controlId="name">
                                         <Card.Title><Form.Label>Nom</Form.Label></Card.Title>
-                                        <Form.Control type="text" ref={this.name} required />
+                                        <Form.Control type="text" placeholder="Ajouter un nouveau libellé" ref={this.name} required />
                                     </Form.Group>
 
                                     <Button variant="info" type="submit">
