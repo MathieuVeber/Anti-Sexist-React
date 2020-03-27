@@ -21,6 +21,10 @@ export class Confirmation extends Component {
         this.props.hideConfirmation();
     }
 
+    handleClose = () => {
+        this.props.hideConfirmation();
+    }
+
     render() {
         let title = this.props.type === "report" ? "Signaler ce post" : "Supprimer ce post";
         let message = this.props.type === "report"
@@ -29,12 +33,12 @@ export class Confirmation extends Component {
         let submit = this.props.type === "report" ? "Signaler" : "Supprimer";
 
         return (
-            <Modal size="sm" show={this.props.display} centered>
-                <Modal.Header className="d-flex justify-content-center">
+            <Modal className="d-flex justify-content-center" size="sm" show={this.props.display} onHide={this.handleClose} centered>
+                <Modal.Header className="d-flex justify-content-center" closeButton>
                     <Modal.Title className="d-flex justify-content-center">{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="text-justify">{message}</Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="d-flex justify-content-between">
                 <Button variant="outline-secondary" onClick={this.props.hideConfirmation}>Annuler</Button>
                 <Button variant="danger" onClick={this.handleConfirm}>{submit}</Button>
                 </Modal.Footer>

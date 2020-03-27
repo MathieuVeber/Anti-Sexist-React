@@ -61,7 +61,7 @@ export class Post extends Component {
             return (
                 <Dropdown className="" key="options" >
                     <Dropdown.Toggle variant="outline-danger" size="sm">
-                        <Badge variant="danger"> {this.props.post.report} </Badge> {this.props.post.report === 1 ?"signalement":"signalements"}
+                        <Badge variant="danger"> {this.props.post.report} </Badge> {this.props.post.report === 1 ?"Signalement":"Signalements"}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item eventKey="cancel">Retirer le signalement</Dropdown.Item>
@@ -137,7 +137,7 @@ export class Post extends Component {
                             </Card.Text>
                             <blockquote className="blockquote mb-0 text-right">
                                 <footer className="blockquote-footer">
-                                    {this.props.post.author || "Anonyme" },  <cite title={this.props.post.createdAt}> <Date date={this.props.post.createdAt}/> </cite>
+                                    {this.props.post.author || "Anonyme" },  <cite title={this.props.post.createdAt}> <Date date={this.props.post.createdAt}/> { this.props.post.createdAt !== this.props.post.updatedAt ? "(Modifié)" : null } </cite>
                                 </footer>
                             </blockquote>
                             <ButtonToolbar className="mt-2 d-flex justify-content-between">
@@ -150,13 +150,11 @@ export class Post extends Component {
                             </ButtonToolbar>
                         </Card.Header>
                         <Accordion.Collapse eventKey="0">
-                            <Card.Body>
-                                <CommentList comments={this.props.post.comments }/>
+                            <Card.Body className="">
+                                <CommentList comments={this.props.post.comments} post={this.props.post} />
                             </Card.Body>
                         </Accordion.Collapse>
-                        <Card.Footer className="text-muted">
-
-                        </Card.Footer>
+                        
                     </Accordion>
                     </Card>
                 </Col>
