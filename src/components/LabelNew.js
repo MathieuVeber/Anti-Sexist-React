@@ -24,7 +24,7 @@ export class LabelNew extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        this.props.postLabel(this.props.labels,this.props.of,this.name.value,this.props.token);
+        this.props.postLabel(this.props.labels,this.props.of,this.name.current.value,this.props.token);
     }
 
     render() {
