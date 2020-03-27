@@ -77,7 +77,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    putLabel,
+    putLabel
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabelEdit)

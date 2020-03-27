@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 //Component
-import {LabelList} from './LabelList'
-import {LabelNew} from './LabelNew'
+import LabelList from './LabelList'
+import LabelNew from './LabelNew'
 
 //Action
 import {getLabels} from'../actions/contentAction'

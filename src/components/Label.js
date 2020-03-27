@@ -3,8 +3,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 //Component
-import {LabelDelete} from "./LabelDelete"
-import {LabelEdit} from "./LabelEdit"
+import LabelDelete from "./LabelDelete"
+import LabelEdit from "./LabelEdit"
 
 //Bootstrap
 import Card from 'react-bootstrap/Card'

@@ -9,8 +9,7 @@ import Label from './Label'
 export function LabelList(props){
     return (
         <div className="LabelList">
-            
-                    {props.labels.map(label => <Label key={label._id} label={label} variant="dark"/>)}
+                {props.labels.map(label => <Label key={label._id} label={label} variant="dark"/>)}
         </div>
     )
 }
