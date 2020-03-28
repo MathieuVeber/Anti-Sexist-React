@@ -39,7 +39,7 @@ export class UserRegister extends Component {
             <div className="register">
                 <Container fluid>
                 <Row className="d-flex justify-content-center">
-                        <Card border="info" >
+                        <Card bg="dark" text="light" >
                             <Card.Header>
                                 Inscription
                             </Card.Header>

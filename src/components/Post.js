@@ -3,10 +3,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { showConfirmation } from '../actions/contentAction'
+import { showConfirmation, postLikePost, deleteLikePost, deleteReport } from '../actions/contentAction'
 
 // Components
 import CommentList from './CommentList'
+import CommentNew from './CommentNew'
 import Date from './Date'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -20,9 +21,42 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Badge from 'react-bootstrap/Badge'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
+import Collapse from 'react-bootstrap/Collapse'
 
 
 export class Post extends Component {
+    // Init
+    constructor(props) {
+        super(props);
+        const likeList = this.props.postReaction.filter( idPost => idPost === this.props.post._id ? true : false);
+        const isLiked = likeList.length === 0 ? false : true;
+        this.state = {
+            isLiked:isLiked,
+            newComment: false,
+        }
+    }
+
+
+    // Handle buttons
+    handleLike = () => {
+        if (this.state.isLiked) {
+            this.props.deleteLikePost(this.props.post._id,this.props.token);
+            this.setState({isLiked:false});
+        }
+        else {
+            this.props.postLikePost(this.props.post._id,this.props.token);
+            this.setState({isLiked:true});
+        }
+    }
+
+    handleDeleteReport = () => {
+        this.props.deleteReport("posts",this.props.post._id,this.props.token);
+    }
+
+    handleNewComment = () => {
+        this.setState({newComment:!this.state.newComment});
+    }
+
 
     // According to who is looking at the post, different options are available
     displayOptions = () => {
@@ -64,7 +98,7 @@ export class Post extends Component {
                         <Badge variant="danger"> {this.props.post.report} </Badge> {this.props.post.report === 1 ?"Signalement":"Signalements"}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item eventKey="cancel">Retirer le signalement</Dropdown.Item>
+                        <Dropdown.Item onClick={this.handleDeleteReport} >Retirer le signalement</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.showConfirmation("report",this.props.post)}>Supprimer</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -79,8 +113,8 @@ export class Post extends Component {
         if(this.props.token) {
             return (
                 <ButtonGroup className="">
-                    <Button variant="outline-success" size="sm"><Badge variant="success">{this.props.post.reaction}</Badge> Déjà entendu</Button>
-                    <Button variant="outline-light" size="sm">Commenter</Button>
+                    <Button variant="outline-success" size="sm" onClick={this.handleLike} active={this.state.isLiked} ><Badge variant="success">{this.props.post.reaction}</Badge> Déjà entendu</Button>
+                    <Button variant="outline-light" size="sm" onClick={this.handleNewComment} > Commenter </Button>
                 </ButtonGroup>
             )
         }
@@ -118,44 +152,50 @@ export class Post extends Component {
             <Row className="justify-content-center">
                 <Col xs="12" md="10" lg="8" xl="6">
                     <Card className="m-4" bg={this.props.variant} text={this.props.variant === 'light' ? 'dark' : 'white'} >
-                    <Accordion defaultActiveKey="">
-                        <Card.Header>
-                            <Card.Subtitle className="d-flex mt-2 mb-2 justify-content-between">
-                                <div className="d-flex align-items-center text-secondary">
-                                {this.props.post.location}
+                        <Accordion defaultActiveKey="">
+                            <Card.Header>
+                                <Card.Subtitle className="d-flex mt-2 mb-2 justify-content-between">
+                                    <div className="d-flex align-items-center text-secondary">
+                                    {this.props.post.location}
+                                    </div>
+                                    <div className="d-flex align-items-center">
+                                        {this.displayOptions()}
+                                    </div>
+                                </Card.Subtitle>
+                                <Card.Title>
+                                    {this.props.post.title}
+                                </Card.Title>
+                                <hr style={{backgroundColor:"white"}} />
+                                <Card.Text className="text-left" >
+                                    {this.props.post.message}
+                                </Card.Text>
+                                <blockquote className="blockquote mb-0 text-right">
+                                    <footer className="blockquote-footer">
+                                        {this.props.post.author || "Anonyme" },  <cite title={this.props.post.createdAt}> <Date date={this.props.post.createdAt}/> { this.props.post.createdAt !== this.props.post.updatedAt ? "(Modifié)" : null } </cite>
+                                    </footer>
+                                </blockquote>
+                                <ButtonToolbar className="mt-2 d-flex justify-content-between">
+                                    {this.displayInteractions()}
+                                    <ButtonGroup className="">
+                                        <Accordion.Toggle as={Button} variant="outline-warning" eventKey="comments" size="sm" disabled={this.props.post.comments.length === 0}>
+                                            <Badge variant="warning">{this.props.post.comments.length}</Badge>  {this.props.post.comments.length < 2 ?"Commentaire":"Commentaires"} 
+                                        </Accordion.Toggle>
+                                    </ButtonGroup>
+                                </ButtonToolbar>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="comments">
+                                <Card.Body className="h-auto">
+                                    <CommentList comments={this.props.post.comments} post={this.props.post} />
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Accordion>
+                        <Collapse className="pt-3 pb-0 mb-0" in={this.state.newComment} >
+                            <Card.Footer className="pl-0 pr-0" >
+                                <div>
+                                    <CommentNew post={this.props.post} />
                                 </div>
-                                <div className="d-flex align-items-center">
-                                    {this.displayOptions()}
-                                </div>
-                            </Card.Subtitle>
-                            <Card.Title>
-                                {this.props.post.title}
-                            </Card.Title>
-                            <hr style={{backgroundColor:"white"}} />
-                            <Card.Text className="text-left" >
-                                {this.props.post.message}
-                            </Card.Text>
-                            <blockquote className="blockquote mb-0 text-right">
-                                <footer className="blockquote-footer">
-                                    {this.props.post.author || "Anonyme" },  <cite title={this.props.post.createdAt}> <Date date={this.props.post.createdAt}/> { this.props.post.createdAt !== this.props.post.updatedAt ? "(Modifié)" : null } </cite>
-                                </footer>
-                            </blockquote>
-                            <ButtonToolbar className="mt-2 d-flex justify-content-between">
-                                {this.displayInteractions()}
-                                <ButtonGroup className="">
-                                    <Accordion.Toggle as={Button} variant="outline-warning" eventKey="0" size="sm" disabled={this.props.post.comments.length === 0}>
-                                        <Badge variant="warning">{this.props.post.comments.length}</Badge>  {this.props.post.comments.length < 2 ?"Commentaire":"Commentaires"} 
-                                    </Accordion.Toggle>
-                                </ButtonGroup>
-                            </ButtonToolbar>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="0">
-                            <Card.Body className="">
-                                <CommentList comments={this.props.post.comments} post={this.props.post} />
-                            </Card.Body>
-                        </Accordion.Collapse>
-                        
-                    </Accordion>
+                            </Card.Footer>
+                        </Collapse>
                     </Card>
                 </Col>
             </Row>
@@ -167,10 +207,14 @@ const mapStateToProps = (state) => ({
     token: state.user.token,
     isAdmin: state.user.isAdmin,
     pseudo: state.user.pseudo,
+    postReaction: state.user.postReaction,
 })
 
 const mapDispatchToProps = {
     showConfirmation,
+    postLikePost,
+    deleteLikePost,
+    deleteReport,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

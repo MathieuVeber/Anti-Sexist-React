@@ -1,9 +1,5 @@
 import {
-    GET_POSTS,
-    POST_COMMENT,PATCH_COMMENT,DELETE_COMMENT,POST_LIKE_COMMENT,DELETE_LIKE_COMMENT,POST_REPORT_COMMENT,
-    GET_LABELS,POST_LABEL,PUT_LABEL,DELETE_LABEL,
-    GET_REPORTS,DELETE_REPORT,
-    SHOW_CONFIRMATION,HIDE_CONFIRMATION,
+    GET_POSTS,GET_LABELS,GET_REPORTS,SHOW_CONFIRMATION,HIDE_CONFIRMATION,
 } from './types';
 import axios from 'axios';
 
@@ -65,7 +61,7 @@ export const deletePost = (idPost,token) => dispatch => {
 
 
 export const postLikePost = (idPost,token) => dispatch => {
-    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/like`,
+    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/like`,{},
     { 
         headers: { 'auth-token':token }
     }, {
@@ -87,7 +83,7 @@ export const deleteLikePost = (idPost,token) => dispatch => {
 };
 
 export const postReportPost = (idPost,token) => dispatch => {
-    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/report`,
+    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/report`,{},
     { 
         headers: { 'auth-token':token }
     }, {
@@ -102,22 +98,17 @@ export const postReportPost = (idPost,token) => dispatch => {
 /* COMMENTS */
 
 
-export const postComment = (posts,idPost,message,location,token) => dispatch => {
+export const postComment = (idPost,message,type,token) => dispatch => {
     axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/`,
     {
         message:message,
-        location:location,
+        type:type,
     } , { 
         headers: { 'auth-token':token }
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_COMMENT,
-            payload: {
-                posts:posts.map(post => post._id === idPost ? post.comments.push(res.data) : post)
-            }
-        })}
+        dispatch(getPosts())
     )
 };
 
@@ -131,10 +122,7 @@ export const patchComment = (idPost,idComment,message,location,token) => dispatc
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: PATCH_COMMENT,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -145,25 +133,19 @@ export const deleteComment = (idPost,idComment,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: DELETE_COMMENT,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
 
 export const postLikeComment = (idPost,idComment,token) => dispatch => {
-    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/${idComment}/like`,
+    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/${idComment}/like`, { },
     { 
         headers: { 'auth-token':token }
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_LIKE_COMMENT,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -174,24 +156,18 @@ export const deleteLikeComment = (idPost,idComment,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: DELETE_LIKE_COMMENT,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
 export const postReportComment = (idPost,idComment,token) => dispatch => {
-    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/${idComment}/report`,
+    axios.post(`${process.env.REACT_APP_API_URL}/posts/${idPost}/${idComment}/report`, { },
     { 
         headers: { 'auth-token':token }
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_REPORT_COMMENT,
-            payload: {}
-        })}
+        res => dispatch(getPosts())
     )
 };
 
@@ -219,10 +195,7 @@ export const postLabel = (labels,of,name,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: POST_LABEL,
-            payload: {labels:labels.push(res.data)}
-        })}
+        res => dispatch(getLabels(of))
     )
 };
 
@@ -235,12 +208,7 @@ export const putLabel = (labels,of,oldName,newName,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: PUT_LABEL,
-            payload: {
-                labels:labels.map(label => label.name === oldName ? res.data : label)
-            }
-        })}
+        res => dispatch(getLabels(of))
     )
 };
 
@@ -251,12 +219,7 @@ export const deleteLabel = (labels,of,name,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
-            type: DELETE_LABEL,
-            payload: {labels:labels.filter(label => {
-                return (label.name === name) ? false : true ;
-            })}
-        })}
+        res => dispatch(getLabels(of))
     )
 };
 
@@ -285,12 +248,10 @@ export const deleteReport = (of,idContent,token) => dispatch => {
         headers: { 'auth-token':token }
     }, {
         crossdomain: true
-    }).then(
-        res => {dispatch({
-            type: DELETE_REPORT,
-            payload: {}
-        })}
-    )
+    }).then(() => {
+        dispatch(getPosts())
+        dispatch(getReports(of,token))
+    })
 };
 
 

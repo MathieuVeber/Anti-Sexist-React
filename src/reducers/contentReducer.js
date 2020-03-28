@@ -1,14 +1,13 @@
 import {
-    GET_POSTS,
-    POST_COMMENT,PATCH_COMMENT,DELETE_COMMENT,POST_LIKE_COMMENT,DELETE_LIKE_COMMENT,POST_REPORT_COMMENT,
-    GET_LABELS,POST_LABEL,PUT_LABEL,DELETE_LABEL,
-    GET_REPORTS,DELETE_REPORT,
-    SHOW_CONFIRMATION,HIDE_CONFIRMATION,
+    GET_POSTS,GET_LABELS,GET_REPORTS,SHOW_CONFIRMATION,HIDE_CONFIRMATION,
 } from '../actions/types';
 
 const initialState = {
     posts: [],
-    labels: [],
+    labels: {
+        posts:[],
+        comments:[],
+    },
     reports: [],
     confirmation: {
         display:false,
@@ -27,55 +26,28 @@ export default function(state = initialState, action) {
                 ...state,
                 posts:action.payload.posts,
             }
-        
-        // COMMENTS
-        case POST_COMMENT:
-            return {
-                ...state,
-                posts:action.payload.posts,
-            }
-        case PATCH_COMMENT :
-            return {
-                ...state,
-            }
-        case DELETE_COMMENT :
-            return {
-                ...state,
-            }
-
-        case POST_LIKE_COMMENT :
-            return {
-                ...state,
-            }
-        case DELETE_LIKE_COMMENT :
-            return {
-                ...state,
-            }
-        case POST_REPORT_COMMENT :
-            return {
-                ...state,
-            }
 
         // LABELS
         case GET_LABELS :
-            return {
-                ...state,
-                labels:action.payload.labels,
+            // labels of posts
+            if (action.payload.of === "posts") {
+                return {
+                    ...state,
+                    labels:{
+                        ...state.labels,
+                        posts:action.payload.labels,
+                    }
+                }
             }
-        case POST_LABEL :
-            return {
-                ...state,
-                labels:action.payload.labels,
-            }
-        case PUT_LABEL :
-            return {
-                ...state,
-                labels:action.payload.labels,
-            }
-        case DELETE_LABEL :
-            return {
-                ...state,
-                labels:action.payload.labels,
+            // labels of comments
+            else {
+                return {
+                    ...state,
+                    labels:{
+                        ...state.labels,
+                        comments:action.payload.labels,
+                    }
+                }
             }
 
         // REPORTS
@@ -83,10 +55,6 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 reports:action.payload.reports,
-            }
-        case DELETE_REPORT :
-            return {
-                ...state,
             }
 
         // CONFIRMATION

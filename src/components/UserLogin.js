@@ -39,7 +39,7 @@ export class UserLogin extends Component {
             <div className="login">
                 <Container fluid>
                     <Row className="d-flex justify-content-center">
-                        <Card className="" border="info" >
+                        <Card bg="dark" text="light" >
                             <Card.Header>
                                 Connexion
                             </Card.Header>

@@ -57,7 +57,6 @@ export class PageHome extends Component {
                 />
 
                 <PostNew/>
-
             </div>
         )
     }
@@ -65,7 +64,7 @@ export class PageHome extends Component {
 
 const mapStateToProps = (state) => ({
     posts: state.content.posts,
-    labels: state.content.labels,
+    labels: state.content.labels.posts,
 })
 
 const mapDispatchToProps = {

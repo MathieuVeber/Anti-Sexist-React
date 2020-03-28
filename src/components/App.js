@@ -21,7 +21,7 @@ function App() {
         <nav>
           <Route path='/' component={Navigation} />
         </nav>
-        <section className="content" style={{"paddingTop": "88px"}}>
+        <section id="content" style={{"paddingTop": "88px"}}>
           <Switch>
             <Route path='/' exact component={PageHome}/>
             <Route path='/categories' component={PageLabel}/>
