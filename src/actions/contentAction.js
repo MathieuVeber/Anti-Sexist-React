@@ -239,7 +239,7 @@ export const postLabel = (labels,of,name,token) => dispatch => {
     }).then(
         res => {dispatch({
             type: POST_LABEL,
-            payload: {labels:labels.push(res.data)}
+            payload: {labels:labels.concat(res.data)}
         })}
     )
 };
@@ -253,10 +253,12 @@ export const putLabel = (labels,of,oldName,newName,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => {dispatch({
+        res => {
+            labels.splice(labels.findIndex((element)=>(element.name === oldName)), 1);
+            dispatch({
             type: PUT_LABEL,
             payload: {
-                labels:labels.map(label => label.name === oldName ? res.data : label)
+                labels:labels.concat({_id: res.data._id, name:newName, of: res.data.of})
             }
         })}
     )
