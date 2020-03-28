@@ -245,7 +245,7 @@ export const postLabel = (labels,of,name,token) => dispatch => {
 };
 
 export const putLabel = (labels,of,oldName,newName,token) => dispatch => {
-    axios.patch(`${process.env.REACT_APP_API_URL}/labels/${of}/${oldName}/`,
+    axios.put(`${process.env.REACT_APP_API_URL}/labels/${of}/${oldName}/`,
     {
         name:newName,
     } , { 

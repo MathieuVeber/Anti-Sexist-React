@@ -15,7 +15,7 @@ export function LabelList(props){
 }
 
 const mapStateToProps = (state) => ({
-    
+    labels: state.content.labels
 })
 
 const mapDispatchToProps = {

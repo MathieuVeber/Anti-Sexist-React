@@ -22,10 +22,10 @@ export class ContentLabel extends Component{
         return (
             <Container>
                 <Col md="4">
-                <LabelList 
-                    labels={this.props.labels}
+                <LabelList/>
+                <LabelNew 
+                    of={this.props.of}
                 />
-                <LabelNew />
                 </Col>
 
             </Container>
