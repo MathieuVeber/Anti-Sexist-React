@@ -1,8 +1,8 @@
 import {
     GET_POSTS,PATCH_POST,DELETE_POST,POST_LIKE_POST,DELETE_LIKE_POST,POST_REPORT_POST,
     POST_COMMENT,PATCH_COMMENT,DELETE_COMMENT,POST_LIKE_COMMENT,DELETE_LIKE_COMMENT,POST_REPORT_COMMENT,
-    GET_LABELS,POST_LABEL,PUT_LABEL,DELETE_LABEL,
-    GET_REPORTS,DELETE_REPORT
+    GET_LABELS_COMMENT, GET_LABELS_POST, POST_LABEL_COMMENT, POST_LABEL_POST, PUT_LABEL_COMMENT, PUT_LABEL_POST ,DELETE_LABEL_COMMENT,DELETE_LABEL_POST,
+    GET_REPORTS,DELETE_REPORT,
 } from './types';
 import axios from 'axios';
 
@@ -217,18 +217,48 @@ export const postReportComment = (idPost,idComment,token) => dispatch => {
 
 /* LABELS */
 
-
-export const getLabels = (of) => dispatch => {
+// Dirty code (need refactor to regroup similar part)
+export const getLabelsPost = () => dispatch => {
+    let of = 'posts';
     axios.get(`${process.env.REACT_APP_API_URL}/labels/${of}/`, {crossdomain: true} )
     .then(
         res => {dispatch({
-            type: GET_LABELS,
-            payload: {labels:res.data, of:of }
+            type: GET_LABELS_POST,
+            payload: {labelsPost:res.data, of:of }
         })}
     )
 };
 
-export const postLabel = (labels,of,name,token) => dispatch => {
+export const getLabelsComments = () => dispatch => {
+    let of = 'comments'; 
+    axios.get(`${process.env.REACT_APP_API_URL}/labels/comments/`, {crossdomain: true} )
+    .then(
+        res => {dispatch({
+            type: GET_LABELS_COMMENT,
+            payload: {labelsComment:res.data, of:of }
+        })}
+    )
+};
+
+export const postLabelPost = (labels,name,token) => dispatch => {
+    //let of = 'posts'
+    axios.post(`${process.env.REACT_APP_API_URL}/labels/posts/`,
+    {
+        name:name,
+    } , { 
+        headers: { 'auth-token':token }
+    }, {
+        crossdomain: true
+    }).then(
+        res => {dispatch({
+            type: POST_LABEL_POST,
+            payload: {labelsPost:labels.concat(res.data)}
+        })}
+    )
+};
+
+export const postLabelComment = (labels,name,token) => dispatch => {
+    let of = 'comments';
     axios.post(`${process.env.REACT_APP_API_URL}/labels/${of}/`,
     {
         name:name,
@@ -238,13 +268,14 @@ export const postLabel = (labels,of,name,token) => dispatch => {
         crossdomain: true
     }).then(
         res => {dispatch({
-            type: POST_LABEL,
-            payload: {labels:labels.concat(res.data)}
+            type: POST_LABEL_COMMENT,
+            payload: {labelsComment:labels.concat(res.data)}
         })}
     )
 };
 
-export const putLabel = (labels,of,oldName,newName,token) => dispatch => {
+export const putLabelPost = (labels,oldName,newName,token) => dispatch => {
+    let of = 'posts';
     axios.put(`${process.env.REACT_APP_API_URL}/labels/${of}/${oldName}/`,
     {
         name:newName,
@@ -256,15 +287,37 @@ export const putLabel = (labels,of,oldName,newName,token) => dispatch => {
         res => {
             labels.splice(labels.findIndex((element)=>(element.name === oldName)), 1);
             dispatch({
-            type: PUT_LABEL,
+            type: PUT_LABEL_POST,
             payload: {
-                labels:labels.concat({_id: res.data._id, name:newName, of: res.data.of})
+                labelsPost:labels.concat({_id: res.data._id, name:newName, of: res.data.of})
             }
         })}
     )
 };
 
-export const deleteLabel = (labels,of,name,token) => dispatch => {
+export const putLabelComment = (labels,oldName,newName,token) => dispatch => {
+    let of = 'comments';
+    axios.put(`${process.env.REACT_APP_API_URL}/labels/${of}/${oldName}/`,
+    {
+        name:newName,
+    } , { 
+        headers: { 'auth-token':token }
+    }, {
+        crossdomain: true
+    }).then(
+        res => {
+            labels.splice(labels.findIndex((element)=>(element.name === oldName)), 1);
+            dispatch({
+            type: PUT_LABEL_COMMENT,
+            payload: {
+                labelsComment:labels.concat({_id: res.data._id, name:newName, of: res.data.of})
+            }
+        })}
+    )
+};
+
+export const deleteLabelPost = (labels,name,token) => dispatch => {
+    let of = 'posts';
     axios.delete(`${process.env.REACT_APP_API_URL}/labels/${of}/${name}/`,
     { 
         headers: { 'auth-token':token }
@@ -272,8 +325,24 @@ export const deleteLabel = (labels,of,name,token) => dispatch => {
         crossdomain: true
     }).then(
         res => {dispatch({
-            type: DELETE_LABEL,
-            payload: {labels:labels.filter(label => {
+            type: DELETE_LABEL_POST,
+            payload: {labelsPost:labels.filter(label => {
+                return (label.name === name) ? false : true ;
+            })}
+        })}
+    )
+};
+export const deleteLabelComment = (labels,name,token) => dispatch => {
+    let of = 'comments';
+    axios.delete(`${process.env.REACT_APP_API_URL}/labels/${of}/${name}/`,
+    { 
+        headers: { 'auth-token':token }
+    }, {
+        crossdomain: true
+    }).then(
+        res => {dispatch({
+            type: DELETE_LABEL_COMMENT,
+            payload: {labelsComment:labels.filter(label => {
                 return (label.name === name) ? false : true ;
             })}
         })}

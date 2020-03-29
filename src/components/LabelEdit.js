@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { putLabel } from '../actions/contentAction'
+import { putLabelPost, putLabelComment } from '../actions/contentAction'
 
 // Components
 import Button from 'react-bootstrap/Button'
@@ -30,7 +30,12 @@ export class LabelEdit extends Component {
         event.preventDefault();
         event.stopPropagation();
         this.handleClose();
-        this.props.putLabel(this.props.labels,this.props.of,this.props.name,this.name.current.value,this.props.token);
+        this.props.posts ? (
+            this.props.putLabelPost(this.props.labels,this.props.name,this.name.current.value,this.props.token)
+        ):(
+            this.props.putLabelComment(this.props.labels,this.props.name,this.name.current.value,this.props.token)
+        );
+        
     }
 
     render() {
@@ -71,13 +76,23 @@ export class LabelEdit extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    token: state.user.token,
-    labels: state.content.labels
-})
-
+function mapStateToProps(state,ownProps){
+    if (ownProps.posts){
+        return{
+            token: state.user.token,
+            labels: state.content.labelsPost
+        };
+    } else {
+        return{
+            token: state.user.token,
+            labels: state.content.labelsComment
+        };
+    }
+    
+}
 const mapDispatchToProps = {
-    putLabel
+    putLabelPost,
+    putLabelComment
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabelEdit)

@@ -9,14 +9,23 @@ import Label from './Label'
 export function LabelList(props){
     return (
         <div className="LabelList">
-                {props.labels.map(label => <Label key={label._id} label={label} variant="dark"/>)}
+                {props.labels.map(label => <Label key={label._id} posts={props.posts} label={label} variant="dark"/>)}
         </div>
     )
 }
 
-const mapStateToProps = (state) => ({
-    labels: state.content.labels
-})
+function mapStateToProps(state,ownProps){
+    if (ownProps.posts){
+        return{
+            labels: state.content.labelsPost,
+        };
+    } else {
+        return{
+            labels: state.content.labelsComment,
+        };
+    }
+    
+}
 
 const mapDispatchToProps = {
     

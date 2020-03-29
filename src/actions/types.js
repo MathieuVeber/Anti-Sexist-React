@@ -17,13 +17,24 @@ export const POST_LIKE_COMMENT = "POST_LIKE_COMMENT";
 export const DELETE_LIKE_COMMENT = "DELETE_LIKE_COMMENT";
 export const POST_REPORT_COMMENT = "POST_REPORT_COMMENT";
 
-    // Labels
+// Labels
+export const GET_LABELS_POST= "GET_LABELS_POST";
+export const POST_LABEL_POST = "POST_LABEL_POST";
+export const PUT_LABEL_POST = "PUT_LABEL_POST";
+export const DELETE_LABEL_POST = "DELETE_LABEL_POST";
+
+export const GET_LABELS_COMMENT = "GET_LABELS_COMMENT";
+export const POST_LABEL_COMMENT = "POST_LABEL_COMMENT";
+export const PUT_LABEL_COMMENT = "PUT_LABEL_COMMENT";
+export const DELETE_LABEL_COMMENT = "DELETE_LABEL_COMMENT";
+/*
 export const GET_LABELS = "GET_LABELS";
 export const POST_LABEL = "POST_LABEL";
 export const PUT_LABEL = "PUT_LABEL";
 export const DELETE_LABEL = "DELETE_LABEL";
+*/
 
-    // Reports
+// Reports
 export const GET_REPORTS = "GET_REPORTS";
 export const DELETE_REPORT = "DELETE_REPORTS";
 

@@ -6,17 +6,21 @@ import ContentLabel from './ContentLabel'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 
 export class PageLabel extends Component {
     render() {
         return (
             <Container fluid>
-                <ContentLabel 
-                    of={'posts'}/>
-                {/*
+                <h1>Gestion des catégories</h1>
+                <Row>
                 <ContentLabel
-                    of={'comments'}/>
-                */}
+                    title={"Témoignages"}
+                    posts={true}/>
+                <ContentLabel
+                    title={"Commentaires"}
+                    posts={false}/>
+                </Row>
             </Container>
         )
     }

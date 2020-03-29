@@ -7,39 +7,51 @@ import LabelList from './LabelList'
 import LabelNew from './LabelNew'
 
 //Action
-import {getLabels} from'../actions/contentAction'
+import {getLabelsPost, getLabelsComments} from'../actions/contentAction'
 
 //Bootstrap
-import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 
+
+
 export class ContentLabel extends Component{
+    
     componentDidMount(){
-        this.props.getLabels(this.props.of)
+        this.props.posts ? (
+            this.props.getLabelsPost()
+        ) : (
+            this.props.getLabelsComments()
+        )
+        
     };
 
     render(){
         return (
-            <Container>
-                <Col md="4">
-                <LabelList/>
-                <LabelNew 
-                    of={this.props.of}
-                />
-                </Col>
+            <Col md="6">
+            <h2>{this.props.title}</h2>
+            <LabelList
+                posts={this.props.posts}
+            />
+            <LabelNew 
+                posts={this.props.posts}
+            />
+            </Col>
 
-            </Container>
         )
     }
     
 }
 
-const mapStateToProps = (state) => ({
-    labels: state.content.labels
-})
+function mapStateToProps (state) {
+    return{
+    }
+}
+
+
 
 const mapDispatchToProps = {
-    getLabels
-}
+    getLabelsPost,
+    getLabelsComments
+  }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentLabel)
