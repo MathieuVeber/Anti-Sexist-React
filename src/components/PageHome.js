@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { getPosts, getLabelsPost } from '../actions/contentAction'
+import { getPosts, getLabels } from '../actions/contentAction'
 
 // Components
 import PostFilter from './PostFilter'
@@ -57,7 +57,6 @@ export class PageHome extends Component {
                 />
 
                 <PostNew/>
-
             </div>
         )
     }
@@ -65,13 +64,13 @@ export class PageHome extends Component {
 
 const mapStateToProps = (state) => ({
     posts: state.content.posts,
-    labels: state.content.labelsPost,
+    labels: state.content.labels.posts,
 })
 
 const mapDispatchToProps = (dispatch) => {
     return{
         getPosts,
-        getLabels: ()=> dispatch(getLabelsPost()),
+        getLabels: ()=> dispatch(getLabels()),
     }
 }
 

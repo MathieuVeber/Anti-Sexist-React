@@ -22,13 +22,13 @@ export function Label(props) {
                     <Col>
                 <LabelDelete 
                     name={props.label.name}
-                    posts={props.posts}
+                    of={props.label.of}
                 />
                 </Col>
                 <Col>
                 <LabelEdit
                     name={props.label.name}
-                    posts={props.posts}
+                    of={props.label.of}
                     id={props.label.id}
                 />
                 </Col>

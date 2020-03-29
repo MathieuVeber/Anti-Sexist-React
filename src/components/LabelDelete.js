@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { deleteLabelComment, deleteLabelPost } from '../actions/contentAction'
+import { deleteLabel} from '../actions/contentAction'
 
 // Components
 import Button from 'react-bootstrap/Button'
@@ -14,12 +14,7 @@ export class LabelDelete extends Component {
     handleClick = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        this.props.posts ? (
-            this.props.deleteLabelPost(this.props.labels,this.props.name,this.props.token)
-        ):(
-            this.props.deleteLabelComment(this.props.labels,this.props.name,this.props.token)
-        )
-        
+        this.props.deleteLabel(this.props.labels,this.props.of,this.props.name,this.props.token)
     }
 
     render() {
@@ -35,20 +30,19 @@ function mapStateToProps(state,ownProps){
     if (ownProps.posts){
         return ({
             token: state.user.token,
-            labels: state.content.labelsPost
+            labels: state.content.labels.posts
         });
     } else {
         return{
             token: state.user.token,
-            labels: state.content.labelsComment
+            labels: state.content.labels.comments
         };
     }
     
 }
 
 const mapDispatchToProps = {
-    deleteLabelPost,
-    deleteLabelComment
+    deleteLabel
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabelDelete)

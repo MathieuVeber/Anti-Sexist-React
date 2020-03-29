@@ -9,19 +9,19 @@ import Label from './Label'
 export function LabelList(props){
     return (
         <div className="LabelList">
-                {props.labels.map(label => <Label key={label._id} posts={props.posts} label={label} variant="dark"/>)}
+                {props.labels.map(label => <Label key={label._id} label={label} variant="dark"/>)}
         </div>
     )
 }
 
 function mapStateToProps(state,ownProps){
-    if (ownProps.posts){
+    if (ownProps.of ==='posts'){
         return{
-            labels: state.content.labelsPost,
+            labels: state.content.labels.posts,
         };
     } else {
         return{
-            labels: state.content.labelsComment,
+            labels: state.content.labels.comments,
         };
     }
     

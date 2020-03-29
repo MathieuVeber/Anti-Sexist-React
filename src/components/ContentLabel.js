@@ -7,7 +7,7 @@ import LabelList from './LabelList'
 import LabelNew from './LabelNew'
 
 //Action
-import {getLabelsPost, getLabelsComments} from'../actions/contentAction'
+import {getLabels} from'../actions/contentAction'
 
 //Bootstrap
 import Col from 'react-bootstrap/Col'
@@ -17,12 +17,7 @@ import Col from 'react-bootstrap/Col'
 export class ContentLabel extends Component{
     
     componentDidMount(){
-        this.props.posts ? (
-            this.props.getLabelsPost()
-        ) : (
-            this.props.getLabelsComments()
-        )
-        
+        this.props.getLabels(this.props.of);
     };
 
     render(){
@@ -30,10 +25,10 @@ export class ContentLabel extends Component{
             <Col md="6">
             <h2>{this.props.title}</h2>
             <LabelList
-                posts={this.props.posts}
+                of={this.props.of}
             />
             <LabelNew 
-                posts={this.props.posts}
+                of={this.props.of}
             />
             </Col>
 
@@ -50,8 +45,7 @@ function mapStateToProps (state) {
 
 
 const mapDispatchToProps = {
-    getLabelsPost,
-    getLabelsComments
+    getLabels
   }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentLabel)

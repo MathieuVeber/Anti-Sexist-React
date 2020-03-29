@@ -74,7 +74,7 @@ export class PostNew extends Component {
 
 const mapStateToProps = (state) => ({
     token: state.user.token,
-    labels: state.content.labelsPost
+    labels: state.content.labels.posts
 })
 
 const mapDispatchToProps = {

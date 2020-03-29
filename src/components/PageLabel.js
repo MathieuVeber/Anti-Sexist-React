@@ -16,10 +16,10 @@ export class PageLabel extends Component {
                 <Row>
                 <ContentLabel
                     title={"Témoignages"}
-                    posts={true}/>
+                    of={'posts'}/>
                 <ContentLabel
                     title={"Commentaires"}
-                    posts={false}/>
+                    of={'comments'}/>
                 </Row>
             </Container>
         )

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { postLabelComment, postLabelPost } from '../actions/contentAction'
+import { postLabel } from '../actions/contentAction'
 
 // Components
 import Container from 'react-bootstrap/Container'
@@ -24,11 +24,7 @@ export class LabelNew extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        this.props.posts ? (
-            this.props.postLabelPost(this.props.labels,this.name.current.value,this.props.token)
-        ):(
-            this.props.postLabelComment(this.props.labels,this.name.current.value,this.props.token)
-        )
+        this.props.postLabel(this.props.labels,this.props.of,this.name.current.value,this.props.token)
         this.name.current.value = '';
     }
 
@@ -63,20 +59,19 @@ function mapStateToProps(state,ownProps){
     if (ownProps.posts){
         return{
             token: state.user.token,
-            labels: state.content.labelsPost
+            labels: state.content.labels.posts
         };
     } else {
         return{
             token: state.user.token,
-            labels: state.content.labelsComment
+            labels: state.content.labels.comments
         };
     }
     
 }
 
 const mapDispatchToProps = {
-    postLabelPost,
-    postLabelComment
+    postLabel,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabelNew)
