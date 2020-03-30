@@ -37,7 +37,7 @@ export class PageHome extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getLabels();
+        this.props.getLabels("posts");
         this.props.getPosts();
     }
 
@@ -67,11 +67,9 @@ const mapStateToProps = (state) => ({
     labels: state.content.labels.posts,
 })
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        getPosts,
-        getLabels: ()=> dispatch(getLabels()),
-    }
+const mapDispatchToProps = {
+    getPosts,
+    getLabels,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageHome)
