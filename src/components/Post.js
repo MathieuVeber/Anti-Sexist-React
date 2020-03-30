@@ -9,8 +9,6 @@ import { showConfirmation, postLikePost, deleteLikePost, deleteReport } from '..
 import CommentList from './CommentList'
 import CommentNew from './CommentNew'
 import Date from './Date'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
 import Button from 'react-bootstrap/Button'
@@ -135,10 +133,10 @@ export class Post extends Component {
                     }
                     >
                         <span className="d-inline-block">
-                        <ButtonGroup className="">
-                            <Button variant="outline-success" size="sm" disabled style={{ pointerEvents: 'none' }}><Badge variant="success">{this.props.post.reaction}</Badge> Déjà entendu</Button>
-                            <Button variant="outline-light" size="sm" disabled style={{ pointerEvents: 'none' }}>Commenter</Button>
-                        </ButtonGroup>
+                            <ButtonGroup className="">
+                                <Button variant="outline-success" size="sm" disabled style={{ pointerEvents: 'none' }}><Badge variant="success">{this.props.post.reaction}</Badge> Déjà entendu</Button>
+                                <Button variant="outline-light" size="sm" disabled style={{ pointerEvents: 'none' }}>Commenter</Button>
+                            </ButtonGroup>
                         </span>
                     </OverlayTrigger>
                 </div>
@@ -149,56 +147,52 @@ export class Post extends Component {
 
     render() {
         return (
-            <Row className="justify-content-center">
-                <Col xs="12" md="10" lg="8" xl="6">
-                    <Card className="m-4" bg={this.props.variant} text={this.props.variant === 'light' ? 'dark' : 'white'} >
-                        <Accordion defaultActiveKey="">
-                            <Card.Header>
-                                <Card.Subtitle className="d-flex mt-2 mb-2 justify-content-between">
-                                    <div className="d-flex align-items-center text-secondary">
-                                    {this.props.post.location}
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        {this.displayOptions()}
-                                    </div>
-                                </Card.Subtitle>
-                                <Card.Title>
-                                    {this.props.post.title}
-                                </Card.Title>
-                                <hr style={{backgroundColor:"white"}} />
-                                <Card.Text className="text-left" >
-                                    {this.props.post.message}
-                                </Card.Text>
-                                <blockquote className="blockquote mb-0 text-right">
-                                    <footer className="blockquote-footer">
-                                        {this.props.post.author || "Anonyme" },  <cite title={this.props.post.createdAt}> <Date date={this.props.post.createdAt}/> { this.props.post.createdAt !== this.props.post.updatedAt ? "(Modifié)" : null } </cite>
-                                    </footer>
-                                </blockquote>
-                                <ButtonToolbar className="mt-2 d-flex justify-content-between">
-                                    {this.displayInteractions()}
-                                    <ButtonGroup className="">
-                                        <Accordion.Toggle as={Button} variant="outline-warning" eventKey="comments" size="sm" disabled={this.props.post.comments.length === 0}>
-                                            <Badge variant="warning">{this.props.post.comments.length}</Badge>  {this.props.post.comments.length < 2 ?"Commentaire":"Commentaires"} 
-                                        </Accordion.Toggle>
-                                    </ButtonGroup>
-                                </ButtonToolbar>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="comments">
-                                <Card.Body className="h-auto">
-                                    <CommentList comments={this.props.post.comments} post={this.props.post} />
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Accordion>
-                        <Collapse className="pt-3 pb-0 mb-0" in={this.state.newComment} >
-                            <Card.Footer className="pl-0 pr-0" >
-                                <div>
-                                    <CommentNew post={this.props.post} />
-                                </div>
-                            </Card.Footer>
-                        </Collapse>
-                    </Card>
-                </Col>
-            </Row>
+            <Card className="mt-4" bg={this.props.variant} text={this.props.variant === 'light' ? 'dark' : 'white'} >
+                <Accordion defaultActiveKey="">
+                    <Card.Header>
+                        <Card.Subtitle className="d-flex mt-2 mb-2 justify-content-between">
+                            <div className="d-flex align-items-center text-secondary">
+                            {this.props.post.location}
+                            </div>
+                            <div className="d-flex align-items-center">
+                                {this.displayOptions()}
+                            </div>
+                        </Card.Subtitle>
+                        <Card.Title>
+                            {this.props.post.title}
+                        </Card.Title>
+                        <hr style={{backgroundColor:"white"}} />
+                        <Card.Text className="text-left" >
+                            {this.props.post.message}
+                        </Card.Text>
+                        <blockquote className="blockquote mb-0 text-right">
+                            <footer className="blockquote-footer">
+                                {this.props.post.author || "Anonyme" },  <cite title={this.props.post.createdAt}> <Date date={this.props.post.createdAt}/> { this.props.post.createdAt !== this.props.post.updatedAt ? "(Modifié)" : null } </cite>
+                            </footer>
+                        </blockquote>
+                        <ButtonToolbar className="mt-2 d-flex justify-content-between">
+                            {this.displayInteractions()}
+                            <ButtonGroup className="">
+                                <Accordion.Toggle as={Button} variant="outline-warning" eventKey="comments" size="sm" disabled={this.props.post.comments.length === 0}>
+                                    <Badge variant="warning">{this.props.post.comments.length}</Badge>  {this.props.post.comments.length < 2 ?"Commentaire":"Commentaires"} 
+                                </Accordion.Toggle>
+                            </ButtonGroup>
+                        </ButtonToolbar>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey="comments">
+                        <Card.Body className="h-auto">
+                            <CommentList comments={this.props.post.comments} post={this.props.post} />
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Accordion>
+                <Collapse className="pt-3 pb-0 mb-0" in={this.state.newComment} >
+                    <Card.Footer className="pl-0 pr-0" >
+                        <div>
+                            <CommentNew post={this.props.post} />
+                        </div>
+                    </Card.Footer>
+                </Collapse>
+            </Card>
         )
     }
 }

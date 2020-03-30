@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { postReportPost, deletePost, hideConfirmation } from '../actions/contentAction'
+import { postReportPost, postReportComment, deletePost, deleteComment, hideConfirmation } from '../actions/contentAction'
 
 // Components
 import Modal from 'react-bootstrap/Modal'
@@ -12,11 +12,21 @@ import Button from 'react-bootstrap/Button'
 export class Confirmation extends Component {
 
     handleConfirm = () => {
-        if (this.props.type === "report") {
+        // Report confirmation of a post
+        if (this.props.type === "report" && !this.props.comment) {
             this.props.postReportPost(this.props.post._id,this.props.token);
         }
-        else {
+        // Report confirmation of a comment
+        else if (this.props.type === "report") {
+            this.props.postReportComment(this.props.post._id,this.props.comment._id,this.props.token);
+        }
+        // Delete confirmation of a post
+        else if (this.props.type === "delete" && !this.props.comment) {
             this.props.deletePost(this.props.post._id,this.props.token);
+        }
+        // Delete confirmation of a comment
+        else {
+            this.props.deleteComment(this.props.post._id,this.props.comment._id,this.props.token);
         }
         this.props.hideConfirmation();
     }
@@ -26,10 +36,10 @@ export class Confirmation extends Component {
     }
 
     render() {
-        let title = this.props.type === "report" ? "Signaler ce post" : "Supprimer ce post";
+        let title = `${this.props.type === "report" ? "Signaler" : "Supprimer"} ce ${!this.props.comment ? "post" : "commentaire"}`;
         let message = this.props.type === "report"
         ? "Vous devez le signaler si vous considérez que le contenu est innaproprié ou injurieux."
-        : "Cette action est définitive, les commentaires seront aussi supprimés.";
+        : `Cette action est définitive${ !this.props.comment ? ", les commentaires seront aussi supprimés" : ""}.`;
         let submit = this.props.type === "report" ? "Signaler" : "Supprimer";
 
         return (
@@ -51,12 +61,15 @@ const mapStateToProps = (state) => ({
     display:state.content.confirmation.display,
     type:state.content.confirmation.type,
     post:state.content.confirmation.post,
+    comment:state.content.confirmation.comment,
     token:state.user.token
 })
 
 const mapDispatchToProps = {
     postReportPost,
+    postReportComment,
     deletePost,
+    deleteComment,
     hideConfirmation,
 }
 

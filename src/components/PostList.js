@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 // Components
 import Post from './Post'
 
-
 export class PostList extends Component {
 
     constructor(props) {

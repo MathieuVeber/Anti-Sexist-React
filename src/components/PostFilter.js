@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 // Components
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Accordion from 'react-bootstrap/Accordion'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
@@ -16,14 +15,10 @@ export class PostFilter extends Component {
     render() {
         return (
             <div className="filter">
-                <Container fluid>
-                <Accordion defaultActiveKey="">
-                    <Card className="d-inline-flex" bg="dark" text="light">
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                        Filtrer
-                        </Accordion.Toggle>
-                <Accordion.Collapse className="m-2 justify-content-center" as={Card.Body} eventKey="0">
-                    <Row className="m-2 justify-content-md-center">
+                <Container className="" fluid>
+                    <Row className="justify-content-md-center">
+                        <Card bg="dark" className="" >
+                            <Card.Body className="m-0 p-0" >
                         <ButtonToolbar className="m-1 d-flex justify-content-center">
                                 <ButtonGroup className="m-1">
                                     <Button onClick={() => this.props.onSortChange()} variant={this.props.current.sort === "latest" ? "light" : "outline-light"} >
@@ -42,11 +37,9 @@ export class PostFilter extends Component {
                                     </ButtonGroup>
                                 : null}
                         </ButtonToolbar>
+                        </Card.Body>
+                        </Card>
                     </Row>
-                    </Accordion.Collapse>
-                    </Card>
-                    </Accordion>
-
                 </Container>
             </div>
         )
