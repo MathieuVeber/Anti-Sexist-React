@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { postLikeComment, deleteLikeComment, showConfirmation } from '../actions/contentAction'
+import { postLikeComment, deleteLikeComment, showConfirmation, deleteReport } from '../actions/contentAction'
 
 // Components
 import Date from './Date'
@@ -39,6 +39,11 @@ export class Comment extends Component {
         }
     }
 
+    handleDeleteReport = () => {
+        this.props.deleteReport("comments",this.props.comment._id,this.props.token);
+    }
+
+
     // According to who is looking at the comment, different options are available
     displayOptions = () => {
         // Non connecté
@@ -68,7 +73,7 @@ export class Comment extends Component {
         else if (this.props.pseudo !== this.props.comment.author && !this.props.isAdmin) {
             return (
                 <Dropdown as={ButtonGroup} drop="right">
-                    <Button variant="dark" size="sm" onClick={this.handleLike}><Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
+                    <Button variant="dark" size="sm" onClick={this.handleLike} active={this.state.isLiked}> <Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
                     <Dropdown.Toggle split variant="dark"/>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => this.props.showConfirmation("report",this.props.post,this.props.comment)}>Signaler</Dropdown.Item>
@@ -80,7 +85,7 @@ export class Comment extends Component {
         else if (this.props.pseudo === this.props.comment.author) {
             return (
                 <ButtonGroup>
-                    <Button variant="dark" size="sm" onClick={this.handleLike}><Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
+                    <Button variant="dark" size="sm" onClick={this.handleLike} active={this.state.isLiked}> <Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
                     <DropdownButton className="" key="options" title="Options" variant="outline-dark" size="sm" >
                         <Dropdown.Item eventKey="update">Modifier</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.showConfirmation("delete",this.props.post,this.props.comment) }>Supprimer</Dropdown.Item>
@@ -92,7 +97,7 @@ export class Comment extends Component {
         else if (this.props.isAdmin && this.props.comment.report === 0) {
             return (
                 <ButtonGroup>
-                    <Button variant="dark" size="sm" onClick={this.handleLike}><Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
+                    <Button variant="dark" size="sm" onClick={this.handleLike} active={this.state.isLiked}> <Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
                     <DropdownButton className="" key="options" title="Options" variant="outline-dark" size="sm" >
                         <Dropdown.Item onClick={() => this.props.showConfirmation("report",this.props.post,this.props.comment)} >Signaler</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.showConfirmation("delete",this.props.post,this.props.comment)} >Supprimer</Dropdown.Item>
@@ -104,14 +109,14 @@ export class Comment extends Component {
         else {
             return (
                 <ButtonGroup>
-                    <Button variant="dark" size="sm" onClick={this.handleLike}><Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
+                    <Button variant="dark" size="sm" onClick={this.handleLike} active={this.state.isLiked}> <Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
                     <Dropdown className="" key="options" >
                         <Dropdown.Toggle variant="danger" size="sm">
                             <Badge variant="danger"> {this.props.comment.report} </Badge> {this.props.comment.report === 1 ?"Signalement":"Signalements"}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="cancel">Retirer le signalement</Dropdown.Item>
-                            <Dropdown.Item onClick={() => this.props.showConfirmation("report",this.props.post,this.props.comment)}>Supprimer</Dropdown.Item>
+                            <Dropdown.Item onClick={this.handleDeleteReport}>Retirer le signalement</Dropdown.Item>
+                            <Dropdown.Item onClick={() => this.props.showConfirmation("delete",this.props.post,this.props.comment)}>Supprimer</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </ButtonGroup>
@@ -149,6 +154,7 @@ const mapDispatchToProps = {
     postLikeComment,
     deleteLikeComment,
     showConfirmation,
+    deleteReport,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment)

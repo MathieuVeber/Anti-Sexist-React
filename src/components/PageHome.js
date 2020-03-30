@@ -9,6 +9,12 @@ import { getPosts, getLabels } from '../actions/contentAction'
 import PostFilter from './PostFilter'
 import PostNew from './PostNew'
 import PostList from './PostList'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import Collapse from 'react-bootstrap/Collapse'
 
 export class PageHome extends Component {
 
@@ -17,7 +23,20 @@ export class PageHome extends Component {
         this.state = {
             label:"all",
             sort:"latest",
+            displayFilter: false,
+            displayNewPost: false,
         }
+    }
+
+
+    handleFilter = () => {
+        this.setState({displayFilter:!this.state.displayFilter});
+        this.setState({displayNewPost:false});
+    }
+
+    handleNewPost = () => {
+        this.setState({displayNewPost:!this.state.displayNewPost});
+        this.setState({displayFilter:false});
     }
 
     onSortChange = () => {
@@ -44,19 +63,50 @@ export class PageHome extends Component {
     render() {
         return (
             <div className="home">
-                <PostFilter
-                    labels={this.props.labels}
-                    current={{sort:this.state.sort, label:this.state.label}}
-                    onSortChange={this.onSortChange}
-                    onLabelChange={this.onLabelChange}
-                />
+                <Container fluid>
+                    <Row className="d-flex justify-content-center" >
+                        <Col xs="12" md="10" lg="8" xl="6" className="">
+                            <ButtonToolbar className=" d-flex justify-content-between" >
+                                <Button onClick={this.handleFilter} variant="dark" active={this.state.displayFilter} >Filtrer</Button>
+                                <Button onClick={this.handleNewPost} variant="dark" active={this.state.displayNewPost} >Ecrire un post</Button>
+                            </ButtonToolbar>
+                        </Col>
+                    </Row>
 
-                <PostList
-                    posts={this.props.posts}
-                    variant="dark"
-                />
+                    <Collapse in={this.state.displayNewPost} >
+                        <div>
+                            <Row className="mt-4 justify-content-center" >
+                                <Col xs="12" md="10" lg="8" xl="6">
+                                    <PostNew />
+                                </Col>
+                            </Row>
+                        </div>
+                    </Collapse>
 
-                <PostNew/>
+                    <Collapse in={this.state.displayFilter} >
+                        <div>
+                            <Row className="mt-4 justify-content-center" >
+                                <Col xs="12" md="10" lg="8" xl="6">
+                                    <PostFilter
+                                        labels={this.props.labels}
+                                        current={{sort:this.state.sort, label:this.state.label}}
+                                        onSortChange={this.onSortChange}
+                                        onLabelChange={this.onLabelChange}
+                                    />
+                                </Col>
+                            </Row>
+                        </div>
+                    </Collapse>
+
+                    <Row className="mb-4 justify-content-center">
+                        <Col xs="12" md="10" lg="8" xl="6">
+                            <PostList
+                                posts={this.props.posts}
+                                variant="dark"
+                            />
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }

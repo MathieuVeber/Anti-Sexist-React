@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 import { postPost } from '../actions/contentAction'
 
 // Components
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
@@ -32,15 +30,13 @@ export class PostNew extends Component {
     render() {
         return (
             <div className="postPost">
-                <Container fluid className="m-4" >
-                    <Row className="d-flex justify-content-center">
-                        <Card className="" border="info" >
+                        <Card className="" bg="dark" text="light" >
                             <Card.Header>
                                 Dites-nous ce que vous avez entendu !
                             </Card.Header>
                             <Card.Body className="p-4">
                                 <Form onSubmit={this.handleSubmit}>
-
+                                
                                     <Form.Group controlId="title">
                                         <Card.Title><Form.Label>Titre</Form.Label></Card.Title>
                                         <Form.Control type="text" placeholder="Femme au volant, mort au tournant !" ref={this.title} required />
@@ -59,14 +55,12 @@ export class PostNew extends Component {
                                         </Form.Control>
                                     </Form.Group>
 
-                                    <Button variant="info" type="submit">
+                                    <Button variant="outline-light" type="submit">
                                         Publier
                                     </Button>
                                 </Form>
                             </Card.Body>
                         </Card>
-                    </Row>
-                </Container>
             </div>
         )
     }
