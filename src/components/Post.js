@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { showConfirmation, postLikePost, deleteLikePost, deleteReport } from '../actions/contentAction'
 
 // Components
+import PostNew from './PostNew'
 import CommentList from './CommentList'
 import CommentNew from './CommentNew'
 import Date from './Date'
@@ -31,6 +32,7 @@ export class Post extends Component {
         this.state = {
             isLiked:isLiked,
             newComment: false,
+            update: false,
         }
     }
 
@@ -55,6 +57,9 @@ export class Post extends Component {
         this.setState({newComment:!this.state.newComment});
     }
 
+    handleUpdate = () => {
+        this.setState({update:!this.state.update});
+    }
 
     // According to who is looking at the post, different options are available
     displayOptions = () => {
@@ -74,7 +79,7 @@ export class Post extends Component {
         else if (this.props.pseudo === this.props.post.author) {
             return (
                 <DropdownButton className="" key="options" title="Options" variant="outline-secondary" size="sm" >
-                    <Dropdown.Item eventKey="update">Modifier</Dropdown.Item>
+                    <Dropdown.Item onClick={this.handleUpdate} >Modifier</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.props.showConfirmation("delete",this.props.post) }>Supprimer</Dropdown.Item>
                 </DropdownButton>
             )
@@ -146,6 +151,18 @@ export class Post extends Component {
 
 
     render() {
+
+        if(this.state.update && this.props.token) {
+            return (
+                <div className="mt-4" >
+                    <PostNew
+                        callBack={this.handleUpdate}
+                        post={this.props.post}
+                    />
+                </div>
+            )
+        }
+
         return (
             <Card className="mt-4" bg={this.props.variant} text={this.props.variant === 'light' ? 'dark' : 'white'} >
                 <Accordion defaultActiveKey="">
@@ -185,8 +202,8 @@ export class Post extends Component {
                         </Card.Body>
                     </Accordion.Collapse>
                 </Accordion>
-                <Collapse className="pt-3 pb-0 mb-0" in={this.state.newComment} >
-                    <Card.Footer className="pl-0 pr-0" >
+                <Collapse className=" pb-0 mb-0" in={this.state.newComment} >
+                    <Card.Footer className="pl-0 pr-0 pb-3" >
                         <div>
                             <CommentNew post={this.props.post} />
                         </div>
