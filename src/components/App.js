@@ -26,6 +26,7 @@ function App() {
             <Route path='/' exact component={PageHome}/>
             <Route path='/categories' component={PageLabel}/>
             <Route path='/moderation' component={PageReport}/>
+            <Route path='/gestion-admin' component={PageAdmin}/>
             <Route path='/connexion' component={UserLogin}/>
             <Route path='/inscription' component={UserRegister}/>
           </Switch>

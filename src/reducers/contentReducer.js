@@ -1,5 +1,5 @@
 import {
-    GET_POSTS,GET_LABELS,GET_REPORTS,SHOW_CONFIRMATION,HIDE_CONFIRMATION,
+    GET_POSTS,GET_LABELS,GET_REPORTS,GET_ADMINS,SHOW_CONFIRMATION,HIDE_CONFIRMATION,
 } from '../actions/types';
 
 const initialState = {
@@ -14,7 +14,8 @@ const initialState = {
         type:null,
         post:null,
         comment:null,
-    }
+    },
+    admins:[]
 };
 
 export default function(state = initialState, action) {
@@ -55,6 +56,13 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 reports:action.payload.reports,
+            }
+
+        // ADMINS
+        case GET_ADMINS :
+            return {
+                ...state,
+                admins:action.payload.admins,
             }
 
         // CONFIRMATION

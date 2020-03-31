@@ -1,5 +1,5 @@
 import {
-    GET_POSTS,GET_LABELS,GET_REPORTS,SHOW_CONFIRMATION,HIDE_CONFIRMATION,
+    GET_POSTS,GET_LABELS,GET_REPORTS,GET_ADMINS,SHOW_CONFIRMATION,HIDE_CONFIRMATION,
 } from './types';
 import axios from 'axios';
 
@@ -269,6 +269,21 @@ export const deleteReport = (of,idContent,token) => dispatch => {
     })
 };
 
+/* Admin*/
+
+export const getAdmins = (token) => dispatch => {
+    axios.get(`${process.env.REACT_APP_API_URL}/admins/`,
+    { 
+        headers: { 'auth-token':token }
+    }, {
+        crossdomain: true
+    }).then(
+        res => {dispatch({
+            type: GET_ADMINS,
+            payload: {admins:res.data}
+        })}
+    )
+}
 
 
 /* Confirmation */

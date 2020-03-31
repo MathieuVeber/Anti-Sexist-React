@@ -7,6 +7,8 @@ export const GET_LABELS = "GET_LABELS";
 
 // Reports
 export const GET_REPORTS = "GET_REPORTS";
+// Admin
+export const GET_ADMINS = "GET_ADMINS";
 
     // Confirmation
 export const SHOW_CONFIRMATION = "SHOW_CONFIRMATION";
