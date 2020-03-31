@@ -72,7 +72,7 @@ export class LabelEdit extends Component {
 }
 
 function mapStateToProps(state,ownProps){
-    if (ownProps.posts){
+    if (ownProps.of === 'posts'){
         return{
             token: state.user.token,
             labels: state.content.labels.posts

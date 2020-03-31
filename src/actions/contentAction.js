@@ -208,7 +208,15 @@ export const putLabel = (labels,of,oldName,newName,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => dispatch(getLabels(of))
+        res => {
+            labels.splice(labels.findIndex((element)=>(element.name === oldName)), 1);
+            dispatch({
+            type: GET_LABELS,
+            payload: {
+                labels:labels.concat({_id: res.data._id, name:newName, of:of}), 
+                of:of
+            }
+        })}
     )
 };
 
@@ -219,7 +227,14 @@ export const deleteLabel = (labels,of,name,token) => dispatch => {
     }, {
         crossdomain: true
     }).then(
-        res => dispatch(getLabels(of))
+        res => dispatch({
+            type: GET_LABELS,
+            payload: {labels:labels.filter(label => {
+                return (label.name === name) ? false : true 
+            }),
+            of:of 
+        }
+        })
     )
 };
 
