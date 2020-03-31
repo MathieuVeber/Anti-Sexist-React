@@ -2,8 +2,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+// Form validation
+import { Formik } from 'formik'
+import * as yup from 'yup'
+
 // Actions
-import { postComment, getLabels } from '../actions/contentAction'
+import { postComment, patchComment } from '../actions/contentAction'
 
 // Components
 import Container from 'react-bootstrap/Container'
@@ -14,49 +18,89 @@ import Button from 'react-bootstrap/Button'
 
 export class CommentNew extends Component {
 
-    constructor(props) {
-        super(props);
-        this.message = React.createRef();
-        this.type = React.createRef();
-    }
-
-    componentDidMount = () => {
-        this.props.getLabels("comments");
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        this.props.postComment(this.props.post._id,this.message.current.value,this.type.current.value,this.props.token);
-        this.message.current=null;
-    }
+    handleSubmit = (message,type) => {        
+        // new comment
+       if (!this.props.callBack) {
+           this.props.postComment(this.props.post_id,message,type,this.props.token);
+       }
+       // update comment
+       else {
+           this.props.patchComment(this.props.post._id,this.props.comment._id,message,type,this.props.token);
+           this.props.callBack();
+       }
+   }
 
     render() {
+
+        const message = this.props.comment ? this.props.comment.message : "" ;
+        const type = this.props.comment ? this.props.comment.type : "" ;
+
+        const formSchema = yup.object({
+            message: yup.string()
+                .min(10,"Un message, c'est au moins 10 caractères !")
+                .max(512,"Pour que l'on vous lise il faut écrire moins de 512 caractères")
+                .required("Le message est requis"),
+            type: yup.string()
+                .min(1, "Le type est requis")
+                .max(32,"Le type doit être concis (- de 32 caractères)")
+                .required("Le type est requis"),
+        });
 
         return (
             <div className="postComment">
                 <Container fluid className="" >
-                    <Form className="" onSubmit={this.handleSubmit}>
+                <Formik
+                    validationSchema={formSchema}
+                    onSubmit={(values) => this.handleSubmit(values.message,values.type)}
+                    initialValues={{
+                        message: message,
+                        type: type,
+                }}>
+                {({
+                    handleSubmit,
+                    handleChange,
+                    handleBlur,
+                    values,
+                    touched,
+                    isValid,
+                    errors,
+                }) => (
+                    <Form noValidate onSubmit={handleSubmit}>
                         <Form.Row className="">
                             <Col className="w-auto h-auto mt-0 mb-0" xs="3">
-                                <Form.Group className="" controlId="type">
-                                    <Form.Control as="select" ref={this.type} required >
+                            <Form.Control
+                                        as="select"
+                                        name="type"
+                                        value={values.type}
+                                        onChange={handleChange}
+                                        isValid={touched.type && !errors.type}
+                                    >
+                                        <option disabled>Catégorie</option>
                                         {this.props.labels.map(label => <option key={label._id}> {label.name} </option>)}
                                     </Form.Control>
-                                </Form.Group>
+                                    <Form.Control.Feedback type="valid" >Parfait !</Form.Control.Feedback>
+                                    <Form.Control.Feedback type="invalid" >{errors.type}</Form.Control.Feedback>
                             </Col>
                             <Col className="w-auto mt-0 mb-0" xs="7" >
-                                <Form.Group className="m-0" controlId="message">
-                                    <Form.Control as="textarea" rows="1" placeholder="Réponse ou commentaire" ref={this.message} required />
-                                </Form.Group>
+                                <Form.Control
+                                            type="textarea"
+                                            placeholder="Réponse ou remarque"
+                                            name="message"
+                                            value={values.message}
+                                            onChange={handleChange}
+                                            isValid={touched.message && !errors.message}
+                                            isInvalid={!!errors.message}
+                                />
+                                <Form.Control.Feedback type="valid" >Parfait !</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid" >{errors.message}</Form.Control.Feedback>
                             </Col>
                             <Col className="w-auto mt-0 mb-0" xs="2" >
-                                <Button className="" variant="outline-light" type="submit">
-                                    Publier
-                                </Button>
+                                <Button variant="outline-light" type="submit">Publier</Button>
                             </Col>
                         </Form.Row>
                     </Form>
+                    )}
+                    </Formik>
                 </Container>
             </div>
         )
@@ -70,7 +114,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     postComment,
-    getLabels,
+    patchComment,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentNew)

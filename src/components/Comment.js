@@ -7,6 +7,7 @@ import { postLikeComment, deleteLikeComment, showConfirmation, deleteReport } fr
 
 // Components
 import Date from './Date'
+import CommentNew from './CommentNew'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import DropdownButton from 'react-bootstrap/DropdownButton'
@@ -24,6 +25,7 @@ export class Comment extends Component {
         const isLiked = likeList.length === 0 ? false : true;
         this.state = {
             isLiked:isLiked,
+            update:false,
         }
     }
 
@@ -43,6 +45,9 @@ export class Comment extends Component {
         this.props.deleteReport("comments",this.props.comment._id,this.props.token);
     }
 
+    handleUpdate = () => {
+        this.setState({update:!this.state.update});
+    }
 
     // According to who is looking at the comment, different options are available
     displayOptions = () => {
@@ -87,7 +92,7 @@ export class Comment extends Component {
                 <ButtonGroup>
                     <Button variant="dark" size="sm" onClick={this.handleLike} active={this.state.isLiked}> <Badge variant="outline-dark">{this.props.comment.reaction}</Badge> J'aime</Button>
                     <DropdownButton className="" key="options" title="Options" variant="outline-dark" size="sm" >
-                        <Dropdown.Item eventKey="update">Modifier</Dropdown.Item>
+                        <Dropdown.Item onClick={this.handleUpdate} >Modifier</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.showConfirmation("delete",this.props.post,this.props.comment) }>Supprimer</Dropdown.Item>
                     </DropdownButton>
                 </ButtonGroup>
@@ -125,6 +130,19 @@ export class Comment extends Component {
     }
 
     render() {
+
+        if(this.state.update && this.props.token ) {
+            return (
+                <div className="mt-1" >
+                    <CommentNew
+                        callBack={this.handleUpdate}
+                        post={this.props.post}
+                        comment={this.props.comment}
+                    />
+                </div>
+            )
+        }
+
         return (
             <div>
                 <div className="text-left mt-2 mb-3">

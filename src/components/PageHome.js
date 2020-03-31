@@ -57,6 +57,7 @@ export class PageHome extends Component {
 
     componentDidMount = () => {
         this.props.getLabels("posts");
+        this.props.getLabels("comments");
         this.props.getPosts();
     }
 
