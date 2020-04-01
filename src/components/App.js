@@ -13,6 +13,7 @@ import PageReport from './PageReport';
 import UserLogin from './UserLogin';
 import UserRegister from './UserRegister';
 import Confirmation from './Confirmation';
+import PageAdmin from './PageAdmin';
 
 function App() {
   return (

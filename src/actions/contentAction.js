@@ -284,6 +284,17 @@ export const getAdmins = (token) => dispatch => {
         })}
     )
 }
+export const deleteAdmin = (idUser,token) => dispatch => {
+    axios.get(`${process.env.REACT_APP_API_URL}/admins/${idUser}`,
+    { 
+        headers: { 'auth-token':token }
+    }, {
+        crossdomain: true
+    }).then(
+        res => {dispatch(getAdmins(token))}
+    )
+}
+    
 
 
 /* Confirmation */

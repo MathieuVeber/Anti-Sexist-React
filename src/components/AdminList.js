@@ -14,8 +14,10 @@ export function AdminList(props){
     )
 }
 
-function mapStateToProps(state,){
-    admins = state.content.admins
+function mapStateToProps(state){
+    return{
+        admins: state.content.admins
+    }
 }
 
 const mapDispatchToProps = {
