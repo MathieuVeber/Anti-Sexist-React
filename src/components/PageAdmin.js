@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import {getAdmins} from '../actions/contentAction'
 
 //Component
-import AdminList from './AdminList'
+import AdminList from './AdminList';
+import AdminNew from './AdminNew';
 
 //bootstrap
 import Container from 'react-bootstrap/Container'
@@ -18,6 +19,7 @@ export class PageAdmin extends Component {
         return (
             <Container fluid>
                 <AdminList/>
+                <AdminNew/>
             </Container>
         )
     }

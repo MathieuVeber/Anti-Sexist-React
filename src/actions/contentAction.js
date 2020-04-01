@@ -285,7 +285,7 @@ export const getAdmins = (token) => dispatch => {
     )
 }
 export const deleteAdmin = (idUser,token) => dispatch => {
-    axios.get(`${process.env.REACT_APP_API_URL}/admins/${idUser}`,
+    axios.delete(`${process.env.REACT_APP_API_URL}/admins/${idUser}`,
     { 
         headers: { 'auth-token':token }
     }, {
@@ -294,7 +294,18 @@ export const deleteAdmin = (idUser,token) => dispatch => {
         res => {dispatch(getAdmins(token))}
     )
 }
-    
+export const putAdmin = (pseudo,token) => dispatch => {
+    axios.delete(`${process.env.REACT_APP_API_URL}/admins/`,{
+        pseudo: pseudo
+    },
+    { 
+        headers: { 'auth-token':token }
+    }, {
+        crossdomain: true
+    }).then(
+        res => {dispatch(getAdmins(token))}
+    )
+}
 
 
 /* Confirmation */
