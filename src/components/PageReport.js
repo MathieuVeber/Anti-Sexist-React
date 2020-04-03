@@ -7,6 +7,10 @@ import { getReports } from '../actions/contentAction'
 
 // Components
 import PostList from './PostList'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+
 
 export class PageReport extends Component {
 
