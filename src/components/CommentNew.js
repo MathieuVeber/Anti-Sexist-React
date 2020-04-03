@@ -21,7 +21,7 @@ export class CommentNew extends Component {
     handleSubmit = (message,type) => {        
         // new comment
        if (!this.props.callBack) {
-           this.props.postComment(this.props.post_id,message,type,this.props.token);
+           this.props.postComment(this.props.post._id,message,type,this.props.token);
        }
        // update comment
        else {
