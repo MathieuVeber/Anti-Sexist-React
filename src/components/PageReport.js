@@ -17,7 +17,13 @@ export class PageReport extends Component {
     render() {
         return (
             <div className="report" >
-                <PostList posts={this.props.reports} variant="dark" />
+                <Container fluid>
+                    <Row className="d-flex justify-content-center" >
+                        <Col xs="12" md="10" lg="8" xl="6" className="">
+                            <PostList posts={this.props.reports} variant="dark" />
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }
